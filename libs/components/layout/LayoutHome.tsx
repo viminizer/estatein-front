@@ -96,10 +96,22 @@ const withLayoutMain = (Component: any) => {
               </Stack>
               <Stack className="bottom">
                 <Stack className="cards">
-                  <Stack className="card"></Stack>
-                  <Stack className="card"></Stack>
-                  <Stack className="card"></Stack>
-                  <Stack className="card"></Stack>
+                  <Stack className="card">
+                    <img src="/img/banner/first-card-icon.png" alt="" />
+                    <p>Find Your Dream Hotel</p>
+                  </Stack>
+                  <Stack className="card">
+                    <img src="/img/banner/second-card-icon.png" alt="" />
+                    <p>Unlock Property Value</p>
+                  </Stack>
+                  <Stack className="card">
+                    <img src="/img/banner/third-card-icon.png" alt="" />
+                    <p>Effortless Property Management</p>
+                  </Stack>
+                  <Stack className="card">
+                    <img src="/img/banner/fourth-card-icon.png" alt="" />
+                    <p>Smart Inverstments</p>
+                  </Stack>
                 </Stack>
               </Stack>
             </Stack>
