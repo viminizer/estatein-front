@@ -59,6 +59,7 @@ body::-webkit-scrollbar {
         border: 1px solid #262626;
         background-color: #1a1a1a;
         &.transparent {
+          opacity: 0.9;
           background-color: #1a1a1a;
         }
         .container {
@@ -66,6 +67,7 @@ body::-webkit-scrollbar {
           align-items: center;
           justify-content: space-between;
           .logo-box {
+            margin-left: 2px;
             img {
               width: 150px;
               cursor: pointer;
@@ -135,9 +137,10 @@ body::-webkit-scrollbar {
             background-color: #141414;
             border-radius: 5px;
             border: 1px solid #262626;
+            margin-right: 2px;
 
             .join-box {
-              width: 184px;
+              width: 185px;
               height: 47px;
               display: flex;
               align-items: center;
@@ -199,9 +202,11 @@ body::-webkit-scrollbar {
     position: relative;
     width: 100%;
     height: 1066px;
+    background-color: white;
+    background-color: #141414;
 
     .container {
-      width: 100%;
+      width: 1300px;
       height: 730px;
       position: relative;
       flex-direction: row;
@@ -217,7 +222,7 @@ body::-webkit-scrollbar {
         align-items: center;
 
         .heading {
-          width: 749px;
+          width: 550px;
           font-family: $font;
           font-weight: 600;
           font-size: 40px;
@@ -227,7 +232,7 @@ body::-webkit-scrollbar {
         }
 
         .desc {
-          width: 749px;
+          width: 550px;
           color: #999999;
           font-size: 16px;
           font-weight: 400;
@@ -236,8 +241,8 @@ body::-webkit-scrollbar {
         }
 
         .buttons {
-          width: 749px;
-          height: 63px;
+          width: 550px;
+          height: 50px;
           display: flex;
           flex-direction: row;
           gap: 20px;
@@ -245,7 +250,7 @@ body::-webkit-scrollbar {
 
           .learn-more {
             font-family: $font;
-            width: 139px;
+            width: 170px;
             height: 100%;
             border: 1px solid #262626;
             border-radius: 5px;
@@ -260,7 +265,7 @@ body::-webkit-scrollbar {
           }
           .browse-hotels {
             font-family: $font;
-            width: 191px;
+            width: 170px;
             height: 100%;
             color: #ffffff;
             background-color: #703bf7;
@@ -273,15 +278,16 @@ body::-webkit-scrollbar {
           }
         }
         .cards {
-          width: 749px;
-          height: 121px;
+          width: 570px;
+          height: 100px;
           margin-top: 80px;
           display: flex;
           flex-direction: row;
           justify-content: space-between;
+          gap: 20px;
 
           .card {
-            width: 236px;
+            width: 200px;
             height: 100%;
             border: 1px solid #262626;
             border-radius: 10px;
@@ -297,7 +303,7 @@ body::-webkit-scrollbar {
 
             .card-text {
               font-family: $font;
-              font-size: 40px;
+              font-size: 30px;
               font-weight: 600;
               line-height: 150%;
               color: #ffffff;
@@ -305,7 +311,7 @@ body::-webkit-scrollbar {
             }
             .card-desc {
               font-family: $font;
-              font-size: 16px;
+              font-size: 14px;
               font-weight: 400;
               line-height: 150%;
               color: #999999;
@@ -322,15 +328,17 @@ body::-webkit-scrollbar {
             rgba(255, 255, 255, 0) 50%
           ),
           url("/img/banner/lines.png");
-        background-size: cover;
+        background-size: contain;
         width: 50%;
         height: 100%;
         display: flex;
         justify-content: center;
         align-items: center;
+
         img {
-          margin-top: 90px;
-          height: 670px;
+          margin-top: 100px;
+          height: 630px;
+          width: 645px;
           object-fit: cover;
         }
       }
@@ -339,7 +347,7 @@ body::-webkit-scrollbar {
     .bottom {
       height: 270px;
       width: 100%;
-      background-color: #1a1a1a;
+      background-color: #141414;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -347,18 +355,20 @@ body::-webkit-scrollbar {
       .cards {
         background-color: #141414;
         height: 252px;
-        width: 102%;
-        border: 1px solid #262626;
+        width: 1300px;
+        border: 3px solid #262626;
+        border-right: none;
+        border-left: none;
         display: flex;
         flex-direction: row;
         justify-content: space-between;
         align-items: center;
-        padding-left: 30px;
-        padding-right: 30px;
+        padding-left: 2px;
+        padding-right: 2px;
 
         .card {
-          width: 430px;
-          height: 210px;
+          width: 310px;
+          height: 190px;
           background-color: #1a1a1a;
           border: 1px solid #262626;
           border-radius: 5px;

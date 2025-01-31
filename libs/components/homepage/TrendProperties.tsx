@@ -1,19 +1,22 @@
-import React, { useState } from 'react';
-import { Stack, Box } from '@mui/material';
-import useDeviceDetect from '../../hooks/useDeviceDetect';
-import WestIcon from '@mui/icons-material/West';
-import EastIcon from '@mui/icons-material/East';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { Autoplay, Navigation, Pagination } from 'swiper';
-import { Property } from '../../types/property/property';
-import { PropertiesInquiry } from '../../types/property/property.input';
-import TrendPropertyCard from './TrendPropertyCard';
-import { useMutation, useQuery } from '@apollo/client';
-import { GET_PROPERTIES } from '../../../apollo/user/query';
-import { T } from '../../types/common';
-import { LIKE_TARGET_PROPERTY } from '../../../apollo/user/mutation';
-import { sweetMixinErrorAlert, sweetTopSmallSuccessAlert } from '../../sweetAlert';
-import { Message } from '../../enums/common.enum';
+import React, { useState } from "react";
+import { Stack, Box } from "@mui/material";
+import useDeviceDetect from "../../hooks/useDeviceDetect";
+import WestIcon from "@mui/icons-material/West";
+import EastIcon from "@mui/icons-material/East";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Autoplay, Navigation, Pagination } from "swiper";
+import { Property } from "../../types/property/property";
+import { PropertiesInquiry } from "../../types/property/property.input";
+import TrendPropertyCard from "./TrendPropertyCard";
+import { useMutation, useQuery } from "@apollo/client";
+import { GET_PROPERTIES } from "../../../apollo/user/query";
+import { T } from "../../types/common";
+import { LIKE_TARGET_PROPERTY } from "../../../apollo/user/mutation";
+import {
+  sweetMixinErrorAlert,
+  sweetTopSmallSuccessAlert,
+} from "../../sweetAlert";
+import { Message } from "../../enums/common.enum";
 
 interface TrendPropertiesProps {
   initialInput: PropertiesInquiry;
@@ -33,7 +36,7 @@ const TrendProperties = (props: TrendPropertiesProps) => {
     error: getPropertiesError,
     refetch: getPropertiesRefetch,
   } = useQuery(GET_PROPERTIES, {
-    fetchPolicy: 'cache-and-network',
+    fetchPolicy: "cache-and-network",
     variables: { input: initialInput },
     notifyOnNetworkStatusChange: true,
     onCompleted: (data: T) => {
@@ -47,40 +50,46 @@ const TrendProperties = (props: TrendPropertiesProps) => {
       if (!user._id) throw new Error(Message.SOMETHING_WENT_WRONG);
       await likeTargetProperty({ variables: { input: id } });
       await getPropertiesRefetch({ input: initialInput });
-      await sweetTopSmallSuccessAlert('success', 800);
+      await sweetTopSmallSuccessAlert("success", 800);
     } catch (err: any) {
-      console.log('ERROR: likePropertyHandler', err.message);
+      console.log("ERROR: likePropertyHandler", err.message);
       sweetMixinErrorAlert(Message.NOT_AUTHENTICATED).then();
     }
   };
 
-  if (trendProperties) console.log('trendProperties:', trendProperties);
+  if (trendProperties) console.log("trendProperties:", trendProperties);
   if (!trendProperties) return null;
 
-  if (device === 'mobile') {
+  if (device === "mobile") {
     return (
-      <Stack className={'trend-properties'}>
-        <Stack className={'container'}>
-          <Stack className={'info-box'}>
+      <Stack className={"trend-properties"}>
+        <Stack className={"container"}>
+          <Stack className={"info-box"}>
             <span>Trend Properties</span>
           </Stack>
-          <Stack className={'card-box'}>
+          <Stack className={"card-box"}>
             {trendProperties.length === 0 ? (
-              <Box component={'div'} className={'empty-list'}>
+              <Box component={"div"} className={"empty-list"}>
                 Trends Empty
               </Box>
             ) : (
               <Swiper
-                className={'trend-property-swiper'}
-                slidesPerView={'auto'}
+                className={"trend-property-swiper"}
+                slidesPerView={"auto"}
                 centeredSlides={true}
                 spaceBetween={15}
                 modules={[Autoplay]}
               >
                 {trendProperties.map((property: Property) => {
                   return (
-                    <SwiperSlide key={property._id} className={'trend-property-slide'}>
-                      <TrendPropertyCard property={property} likePropertyHandler={likePropertyHandler} />
+                    <SwiperSlide
+                      key={property._id}
+                      className={"trend-property-slide"}
+                    >
+                      <TrendPropertyCard
+                        property={property}
+                        likePropertyHandler={likePropertyHandler}
+                      />
                     </SwiperSlide>
                   );
                 })}
@@ -92,44 +101,51 @@ const TrendProperties = (props: TrendPropertiesProps) => {
     );
   } else {
     return (
-      <Stack className={'trend-properties'}>
-        <Stack className={'container'}>
-          <Stack className={'info-box'}>
-            <Box component={'div'} className={'left'}>
+      <Stack className={"trend-properties"}>
+        <Stack className={"container"}>
+          <Stack className={"info-box"}>
+            <Box component={"div"} className={"left"}>
+              <img src="/img/banner/stars.svg" />
               <span>Trend Properties</span>
               <p>Trend is based on likes</p>
             </Box>
-            <Box component={'div'} className={'right'}>
-              <div className={'pagination-box'}>
-                <WestIcon className={'swiper-trend-prev'} />
-                <div className={'swiper-trend-pagination'}></div>
-                <EastIcon className={'swiper-trend-next'} />
+            <Box component={"div"} className={"right"}>
+              <div className={"pagination-box"}>
+                <WestIcon className={"swiper-trend-prev"} />
+                <div className={"swiper-trend-pagination"}></div>
+                <EastIcon className={"swiper-trend-next"} />
               </div>
             </Box>
           </Stack>
-          <Stack className={'card-box'}>
+          <Stack className={"card-box"}>
             {trendProperties.length === 0 ? (
-              <Box component={'div'} className={'empty-list'}>
+              <Box component={"div"} className={"empty-list"}>
                 Trends Empty
               </Box>
             ) : (
               <Swiper
-                className={'trend-property-swiper'}
-                slidesPerView={'auto'}
+                className={"trend-property-swiper"}
+                slidesPerView={"auto"}
                 spaceBetween={15}
                 modules={[Autoplay, Navigation, Pagination]}
                 navigation={{
-                  nextEl: '.swiper-trend-next',
-                  prevEl: '.swiper-trend-prev',
+                  nextEl: ".swiper-trend-next",
+                  prevEl: ".swiper-trend-prev",
                 }}
                 pagination={{
-                  el: '.swiper-trend-pagination',
+                  el: ".swiper-trend-pagination",
                 }}
               >
                 {trendProperties.map((property: Property) => {
                   return (
-                    <SwiperSlide key={property._id} className={'trend-property-slide'}>
-                      <TrendPropertyCard property={property} likePropertyHandler={likePropertyHandler} />
+                    <SwiperSlide
+                      key={property._id}
+                      className={"trend-property-slide"}
+                    >
+                      <TrendPropertyCard
+                        property={property}
+                        likePropertyHandler={likePropertyHandler}
+                      />
                     </SwiperSlide>
                   );
                 })}
@@ -146,8 +162,8 @@ TrendProperties.defaultProps = {
   initialInput: {
     page: 1,
     limit: 8,
-    sort: 'propertyLikes',
-    direction: 'DESC',
+    sort: "propertyLikes",
+    direction: "DESC",
     search: {},
   },
 };
