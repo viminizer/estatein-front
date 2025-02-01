@@ -651,10 +651,6 @@ body::-webkit-scrollbar {
     flex-direction: row;
     background: #141414;
     border-top: 1px solid #262626;
-    background-image: url("/img/icons/tiles.svg");
-    background-position: bottom right; /* Moves image to the bottom-right */
-    background-repeat: no-repeat;
-    background-size: auto;
 
     .footer-container {
       width: 1300px;
