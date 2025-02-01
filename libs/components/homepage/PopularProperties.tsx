@@ -85,7 +85,6 @@ const PopularProperties = (props: PopularPropertiesProps) => {
                 <Link href={"/property"}>
                   <span>See All Categories</span>
                 </Link>
-                <img src="/img/icons/rightup.svg" alt="" />
               </div>
             </Box>
           </Stack>

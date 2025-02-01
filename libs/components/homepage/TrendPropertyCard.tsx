@@ -111,12 +111,7 @@ const TrendPropertyCard = (props: TrendPropertyCardProps) => {
           <div>${property.propertyPrice}</div>
         </Box>
         <Box component={"div"} className={"info"}>
-          <strong
-            className={"title"}
-            onClick={() => pushDetailHandler(property._id)}
-          >
-            {property.propertyTitle}
-          </strong>
+          <strong className={"title"}>{property.propertyTitle}</strong>
           <p className={"desc"}>{property.propertyDesc ?? "no description"}</p>
           <div className={"options"}>
             <div>
@@ -154,7 +149,11 @@ const TrendPropertyCard = (props: TrendPropertyCardProps) => {
                 {property?.propertyLikes}
               </Typography>
             </div>
-            <Button className="bott-btn">View Hotel</Button>
+            <Button onClick={() => pushDetailHandler(property._id)}
+              className="bott-btn"
+            >
+              View Hotel
+            </Button>
           </div>
         </Box>
       </Stack>
