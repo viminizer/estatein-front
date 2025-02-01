@@ -649,23 +649,84 @@ body::-webkit-scrollbar {
     height: auto;
     display: flex;
     flex-direction: row;
-    background: #181a20;
+    background: #141414;
+    border-top: 1px solid #262626;
+    background-image: url("/img/icons/tiles.svg");
+    background-position: bottom right; /* Moves image to the bottom-right */
+    background-repeat: no-repeat;
+    background-size: auto;
+
     .footer-container {
       width: 1300px;
       height: auto;
       margin: 0 auto;
+
       .main {
         display: flex;
         flex-direction: row;
         justify-content: space-between;
+
         .left {
           height: 360px;
+          width: 50%;
           display: flex;
           flex-direction: column;
           justify-content: space-between;
+
+          .top {
+            display: flex;
+            flex-direction: column;
+
+            strong {
+              color: #fff;
+              font-family: $font;
+              font-size: 15px;
+              font-style: normal;
+              font-weight: 600;
+              line-height: normal;
+              text-transform: capitalize;
+            }
+
+            div {
+              padding: 20px 30px;
+              width: 400px;
+              height: 50px;
+              display: flex;
+              flex-direction: row;
+              align-items: center;
+              box-sizing: border-box;
+              border-radius: 7px;
+              background: #141414;
+              border: 1px solid #262626;
+
+              input {
+                margin-right: 5px;
+                width: 85%;
+                outline: none;
+                border: none;
+                color: #fff;
+                font-family: $font;
+                font-size: 14px;
+                font-style: normal;
+                font-weight: 400;
+                line-height: 26px;
+                background: #141414;
+              }
+              span {
+                color: #fff;
+                font-family: $font;
+                font-size: 15px;
+                font-style: normal;
+                font-weight: 600;
+                line-height: normal;
+                cursor: pointer;
+              }
+            }
+          }
           .footer-box {
             display: flex;
             flex-direction: column;
+
             .logo {
               width: 128px;
               height: 52px;
@@ -690,73 +751,41 @@ body::-webkit-scrollbar {
             }
             .media-box {
               margin-top: 12px;
-              color: #929495;
-              svg {
-                font-size: 32px;
+              color: #fff;
+              img {
+                width: 40px;
+                height: 40px;
+                padding: 10px;
+                border: 1px solid #262626;
+                border-radius: 50%;
                 margin-right: 22px;
                 cursor: pointer;
+                transition: transform background-color 0.2s ease-in-out;
+
+                &:hover {
+                  background-color: #1a1a1a;
+                  transform: scale(1.07);
+                }
               }
             }
           }
         }
+
         .right {
+          width: 50%;
           display: flex;
           flex-direction: column;
-          .top {
-            display: flex;
-            flex-direction: column;
-            strong {
-              color: #fff;
-              font-family: $font;
-              font-size: 15px;
-              font-style: normal;
-              font-weight: 600;
-              line-height: normal;
-              text-transform: capitalize;
-            }
-            div {
-              padding: 20px 30px;
-              margin-top: 20px;
-              width: 667px;
-              height: 70px;
-              display: flex;
-              flex-direction: row;
-              align-items: center;
-              box-sizing: border-box;
-              border-radius: 12px;
-              background: #212329;
-              input {
-                margin-right: 10px;
-                width: 85%;
-                border: none;
-                outline: none;
-                color: #fff;
-                font-family: $font;
-                font-size: 14px;
-                font-style: normal;
-                font-weight: 400;
-                line-height: 26px;
-                background: none;
-              }
-              span {
-                color: #fff;
-                font-family: $font;
-                font-size: 15px;
-                font-style: normal;
-                font-weight: 600;
-                line-height: normal;
-                cursor: pointer;
-              }
-            }
-          }
+
           .bottom {
             margin-top: 60px;
             display: flex;
             flex-direction: row;
             justify-content: space-between;
+
             div {
               display: flex;
               flex-direction: column;
+
               strong {
                 margin-bottom: 3px;
                 color: #fff;
