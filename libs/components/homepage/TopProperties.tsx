@@ -62,7 +62,7 @@ const TopProperties = (props: TopPropertiesProps) => {
       <Stack className={"top-properties"}>
         <Stack className={"container"}>
           <Stack className={"info-box"}>
-            <span>Top properties</span>
+            <span>Featured Properties</span>
           </Stack>
           <Stack className={"card-box"}>
             <Swiper
@@ -97,7 +97,7 @@ const TopProperties = (props: TopPropertiesProps) => {
           <Stack className={"info-box"}>
             <Box component={"div"} className={"left"}>
               <img src="/img/banner/stars.svg" />
-              <span>Top properties</span>
+              <span>Featured Properties</span>
               <p>Check out our Top Properties</p>
             </Box>
             <Box component={"div"} className={"right"}>

@@ -205,7 +205,8 @@
             background: #141414;
             border-radius: 10px;
 
-            &:hover { opacity: 1;
+            &:hover {
+              opacity: 1;
               transform: scale(1.05);
             }
             .card-img {
@@ -778,7 +779,9 @@
         }
       }
     }
-    .top-agents { position: relative; width: 100%;
+    .top-agents {
+      position: relative;
+      width: 100%;
       height: 600px;
       display: flex;
       flex-direction: row;
@@ -890,7 +893,7 @@
                 width: 90%;
                 height: 90%;
                 background-color: transparent;
-                border: 3px solid #703bf7;
+                border: 4px solid #141414;
                 border-radius: 10px;
                 opacity: 0;
                 transition: opacity 0.5s ease-in-out;
@@ -906,7 +909,7 @@
                 font-style: normal;
                 font-weight: 800;
                 line-height: normal;
-                text-shadow: 5px 5px 5px rgba(0, 0, 0, 0.3);
+                text-shadow: 1px 1px 3px white;
                 text-transform: capitalize;
                 cursor: pointer;
                 z-index: 1;
@@ -914,19 +917,19 @@
                 padding-left: 100px;
                 padding-top: 150px;
                 transition: opacity 0.5s ease-in-out;
-                color: #703bf7;
+                color: #141414;
               }
 
               span {
                 position: abosolute;
-                color: #1a64ff;
+                color: #1a1a1a;
                 text-align: center;
                 font-family: $font;
                 font-size: 20px;
                 font-style: normal;
                 font-weight: 500;
                 line-height: 28px;
-                text-shadow: 5px 5px 5px rgba(0, 0, 0, 0.3);
+                text-shadow: 1px 1px 3px white;
                 text-transform: lowercase;
                 z-index: 1;
                 opacity: 0;
