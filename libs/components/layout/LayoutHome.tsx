@@ -66,14 +66,16 @@ const withLayoutMain = (Component: any) => {
               <Stack className="container">
                 <Stack className="left">
                   <Typography className="heading">
-                    Discover Your Dream Hotel With OnlyHotels
+                    Discover Your Dream Property With Estatein
                   </Typography>
                   <p className="desc">
-                    You journey to finding your perfect hotel begins here!
+                    Your journey to finding the perfect property begins here.
+                    Explore our listings to find the home that matches your
+                    dreams.
                   </p>
                   <Stack className="buttons">
                     <Button className="learn-more">Learn More</Button>
-                    <Button className="browse-hotels">Browse Hotels</Button>
+                    <Button className="browse-hotels">Browse Properties</Button>
                   </Stack>
                   <Stack className="cards">
                     <Stack className="card">
