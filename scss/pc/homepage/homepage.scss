@@ -387,6 +387,11 @@
             border: 1px solid #262626;
             border-radius: 12px;
             transition: transform 0.3s, opacity 0.3s;
+            background-image: url("/img/icons/tiles.svg");
+            background-position: bottom right; /* Moves image to the bottom-right */
+            background-repeat: repeat;
+            background-size: fill;
+
             &:hover {
               opacity: 1;
               transform: scale(1.05);
@@ -444,7 +449,7 @@
               display: flex;
               flex-direction: column;
               box-sizing: border-box;
-              background: #141414;
+              background: transparent;
 
               .title {
                 overflow: hidden;
@@ -785,6 +790,10 @@
         flex-direction: column;
         align-items: center;
         border-bottom: 1px solid #262626;
+        background-image: url("/img/icons/tiles-left.svg");
+        background-position: top right; /* Moves image to the bottom-right */
+        background-repeat: no-repeat;
+        background-size: auto;
 
         .wrapper {
           width: 100%;
