@@ -1,24 +1,33 @@
-import React, { ChangeEvent, MouseEvent, useCallback, useEffect, useState } from 'react';
-import { NextPage } from 'next';
-import useDeviceDetect from '../../libs/hooks/useDeviceDetect';
-import withLayoutBasic from '../../libs/components/layout/LayoutBasic';
-import { Stack, Box, Button, Pagination } from '@mui/material';
-import { Menu, MenuItem } from '@mui/material';
-import KeyboardArrowDownRoundedIcon from '@mui/icons-material/KeyboardArrowDownRounded';
-import AgentCard from '../../libs/components/common/AgentCard';
-import { useRouter } from 'next/router';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import { Member } from '../../libs/types/member/member';
-import { serializeFetchParameter, useMutation, useQuery } from '@apollo/client';
-import { GET_AGENTS } from '../../apollo/user/query';
-import { T } from '../../libs/types/common';
-import { LIKE_TARGET_MEMBER } from '../../apollo/user/mutation';
-import { Direction, Message } from '../../libs/enums/common.enum';
-import { sweetMixinErrorAlert, sweetMixinSuccessAlert } from '../../libs/sweetAlert';
+import React, {
+  ChangeEvent,
+  MouseEvent,
+  useCallback,
+  useEffect,
+  useState,
+} from "react";
+import { NextPage } from "next";
+import useDeviceDetect from "../../libs/hooks/useDeviceDetect";
+import withLayoutBasic from "../../libs/components/layout/LayoutBasic";
+import { Stack, Box, Button, Pagination } from "@mui/material";
+import { Menu, MenuItem } from "@mui/material";
+import KeyboardArrowDownRoundedIcon from "@mui/icons-material/KeyboardArrowDownRounded";
+import AgentCard from "../../libs/components/common/AgentCard";
+import { useRouter } from "next/router";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { Member } from "../../libs/types/member/member";
+import { serializeFetchParameter, useMutation, useQuery } from "@apollo/client";
+import { GET_AGENTS } from "../../apollo/user/query";
+import { T } from "../../libs/types/common";
+import { LIKE_TARGET_MEMBER } from "../../apollo/user/mutation";
+import { Direction, Message } from "../../libs/enums/common.enum";
+import {
+  sweetMixinErrorAlert,
+  sweetMixinSuccessAlert,
+} from "../../libs/sweetAlert";
 
 export const getStaticProps = async ({ locale }: any) => ({
   props: {
-    ...(await serverSideTranslations(locale, ['common'])),
+    ...(await serverSideTranslations(locale, ["common"])),
   },
 });
 
@@ -26,16 +35,18 @@ const AgentList: NextPage = ({ initialInput, ...props }: any) => {
   const device = useDeviceDetect();
   const router = useRouter();
   const [anchorEl2, setAnchorEl2] = useState<null | HTMLElement>(null);
-  const [filterSortName, setFilterSortName] = useState('Recent');
+  const [filterSortName, setFilterSortName] = useState("Recent");
   const [sortingOpen, setSortingOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [searchFilter, setSearchFilter] = useState<any>(
-    router?.query?.input ? JSON.parse(router?.query?.input as string) : initialInput,
+    router?.query?.input
+      ? JSON.parse(router?.query?.input as string)
+      : initialInput
   );
   const [agents, setAgents] = useState<Member[]>([]);
   const [total, setTotal] = useState<number>(0);
   const [currentPage, setCurrentPage] = useState<number>(1);
-  const [searchText, setSearchText] = useState<string>('');
+  const [searchText, setSearchText] = useState<string>("");
 
   /** APOLLO REQUESTS **/
   const [likeTargetMember] = useMutation(LIKE_TARGET_MEMBER);
@@ -46,7 +57,7 @@ const AgentList: NextPage = ({ initialInput, ...props }: any) => {
     error: getAgentsError,
     refetch: getAgentsRefetch,
   } = useQuery(GET_AGENTS, {
-    fetchPolicy: 'network-only',
+    fetchPolicy: "network-only",
     variables: { input: searchFilter },
     notifyOnNetworkStatusChange: true,
     onCompleted: (data: T) => {
@@ -61,7 +72,10 @@ const AgentList: NextPage = ({ initialInput, ...props }: any) => {
       const input_obj = JSON.parse(router?.query?.input as string);
       setSearchFilter(input_obj);
     } else {
-      router.replace(`/agent?input=${JSON.stringify(searchFilter)}`, `/agent?input=${JSON.stringify(searchFilter)}`);
+      router.replace(
+        `/agent?input=${JSON.stringify(searchFilter)}`,
+        `/agent?input=${JSON.stringify(searchFilter)}`
+      );
     }
 
     setCurrentPage(searchFilter.page === undefined ? 1 : searchFilter.page);
@@ -78,7 +92,7 @@ const AgentList: NextPage = ({ initialInput, ...props }: any) => {
           `/agent?input=${JSON.stringify({
             ...searchFilter,
           })}`,
-          { scroll: false },
+          { scroll: false }
         )
         .then();
     } else {
@@ -96,7 +110,7 @@ const AgentList: NextPage = ({ initialInput, ...props }: any) => {
               ...searchFilter.search,
             },
           })}`,
-          { scroll: false },
+          { scroll: false }
         )
         .then();
     }
@@ -113,9 +127,9 @@ const AgentList: NextPage = ({ initialInput, ...props }: any) => {
         },
       });
       await getAgentsRefetch({ input: searchFilter });
-      await sweetMixinSuccessAlert('success', 800);
+      await sweetMixinSuccessAlert("success", 800);
     } catch (err: any) {
-      console.log('likeTargetMember', err);
+      console.log("likeTargetMember", err);
       sweetMixinErrorAlert(err.message).then();
     }
   };
@@ -131,78 +145,125 @@ const AgentList: NextPage = ({ initialInput, ...props }: any) => {
 
   const sortingHandler = async (e: React.MouseEvent<HTMLLIElement>) => {
     switch (e.currentTarget.id) {
-      case 'recent':
-        setSearchFilter({ ...searchFilter, sort: 'createdAt', direction: 'DESC' });
+      case "recent":
+        setSearchFilter({
+          ...searchFilter,
+          sort: "createdAt",
+          direction: "DESC",
+        });
         router.push(
           `/agent?input=${JSON.stringify({
             ...searchFilter,
-            sort: 'createdAt',
-            direction: 'DESC',
+            sort: "createdAt",
+            direction: "DESC",
           })}`,
+          `/agent?input=${JSON.stringify({
+            ...searchFilter,
+            sort: "createdAt",
+            direction: "DESC",
+          })}`,
+          { scroll: false }
         );
-        setFilterSortName('Recent');
+        setFilterSortName("Recent");
         break;
-      case 'old':
-        setSearchFilter({ ...searchFilter, sort: 'createdAt', direction: 'ASC' });
+      case "old":
+        setSearchFilter({
+          ...searchFilter,
+          sort: "createdAt",
+          direction: "ASC",
+        });
         router.push(
           `/agent?input=${JSON.stringify({
             ...searchFilter,
-            sort: 'createdAt',
-            direction: 'ASC',
+            sort: "createdAt",
+            direction: "ASC",
           })}`,
+          `/agent?input=${JSON.stringify({
+            ...searchFilter,
+            sort: "createdAt",
+            direction: "ASC",
+          })}`,
+          { scroll: false }
         );
-        setFilterSortName('Oldest order');
+        setFilterSortName("Oldest");
         break;
-      case 'likes':
-        setSearchFilter({ ...searchFilter, sort: 'memberLikes', direction: 'DESC' });
+      case "likes":
+        setSearchFilter({
+          ...searchFilter,
+          sort: "memberLikes",
+          direction: "DESC",
+        });
         router.push(
           `/agent?input=${JSON.stringify({
             ...searchFilter,
-            sort: 'memberLikes',
-            direction: 'DESC',
+            sort: "memberLikes",
+            direction: "DESC",
           })}`,
+          `/agent?input=${JSON.stringify({
+            ...searchFilter,
+            sort: "memberLikes",
+            direction: "DESC",
+          })}`,
+          { scroll: false }
         );
-        setFilterSortName('Likes');
+        setFilterSortName("Likes");
         break;
-      case 'views':
-        setSearchFilter({ ...searchFilter, sort: 'memberViews', direction: 'DESC' });
+      case "views":
+        setSearchFilter({
+          ...searchFilter,
+          sort: "memberViews",
+          direction: "DESC",
+        });
         router.push(
           `/agent?input=${JSON.stringify({
             ...searchFilter,
-            sort: 'memberViews',
-            direction: 'DESC',
+            sort: "memberViews",
+            direction: "DESC",
           })}`,
+          `/agent?input=${JSON.stringify({
+            ...searchFilter,
+            sort: "memberViews",
+            direction: "DESC",
+          })}`,
+          { scroll: false }
         );
-        setFilterSortName('Views');
+        setFilterSortName("Views");
         break;
     }
     setSortingOpen(false);
     setAnchorEl2(null);
   };
 
-  const paginationChangeHandler = async (event: ChangeEvent<unknown>, value: number) => {
+  const paginationChangeHandler = async (
+    event: ChangeEvent<unknown>,
+    value: number
+  ) => {
     searchFilter.page = value;
-    await router.push(`/agent?input=${JSON.stringify(searchFilter)}`, `/agent?input=${JSON.stringify(searchFilter)}`, {
-      scroll: false,
-    });
+    await router.push(
+      `/agent?input=${JSON.stringify(searchFilter)}`,
+      `/agent?input=${JSON.stringify(searchFilter)}`,
+      {
+        scroll: false,
+      }
+    );
     setCurrentPage(value);
   };
 
-  if (device === 'mobile') {
+  if (device === "mobile") {
     return <h1>AGENTS PAGE MOBILE</h1>;
   } else {
     return (
-      <Stack className={'agent-list-page'}>
-        <Stack className={'container'}>
-          <Stack className={'filter'}>
-            <Box component={'div'} className={'left'}>
+      <Stack className={"agent-list-page"}>
+        <Stack className={"container"}>
+          <Stack className={"filter"}>
+            <Box component={"div"} className={"left"}>
               <input
                 type="text"
-                placeholder={'Search for an agent'}
+                placeholder={"Search for an agent"}
                 value={searchText}
                 onChange={(e: any) => setSearchText(e.target.value)}
                 onKeyDown={(event: any) => {
-                  if (event.key == 'Enter') {
+                  if (event.key == "Enter") {
                     setSearchFilter({
                       ...searchFilter,
                       search: { ...searchFilter.search, text: searchText },
@@ -211,59 +272,86 @@ const AgentList: NextPage = ({ initialInput, ...props }: any) => {
                 }}
               />
             </Box>
-            <Box component={'div'} className={'right'}>
+            <Box component={"div"} className={"right"}>
               <span>Sort by</span>
               <div>
-                <Button onClick={sortingClickHandler} endIcon={<KeyboardArrowDownRoundedIcon />}>
+                <Button
+                  onClick={sortingClickHandler}
+                  endIcon={<KeyboardArrowDownRoundedIcon />}
+                  sx={{ color: "#ffffff" }}
+                >
                   {filterSortName}
                 </Button>
-                <Menu anchorEl={anchorEl} open={sortingOpen} onClose={sortingCloseHandler} sx={{ paddingTop: '5px' }}>
-                  <MenuItem onClick={sortingHandler} id={'recent'} disableRipple>
+                <Menu
+                  anchorEl={anchorEl}
+                  open={sortingOpen}
+                  onClose={sortingCloseHandler}
+                  sx={{
+                    paddingTop: "5px",
+
+                    "& .MuiPaper-root": {
+                      backgroundColor: "#141414", // ✅ Background color for the menu
+                      color: "white", // ✅ Text color
+                    },
+                  }}
+                >
+                  <MenuItem
+                    onClick={sortingHandler}
+                    id={"recent"}
+                    disableRipple
+                  >
                     Recent
                   </MenuItem>
-                  <MenuItem onClick={sortingHandler} id={'old'} disableRipple>
+                  <MenuItem onClick={sortingHandler} id={"old"} disableRipple>
                     Oldest
                   </MenuItem>
-                  <MenuItem onClick={sortingHandler} id={'likes'} disableRipple>
+                  <MenuItem onClick={sortingHandler} id={"likes"} disableRipple>
                     Likes
                   </MenuItem>
-                  <MenuItem onClick={sortingHandler} id={'views'} disableRipple>
+                  <MenuItem onClick={sortingHandler} id={"views"} disableRipple>
                     Views
                   </MenuItem>
                 </Menu>
               </div>
             </Box>
           </Stack>
-          <Stack className={'card-wrap'}>
+          <Stack className={"card-wrap"}>
             {agents?.length === 0 ? (
-              <div className={'no-data'}>
+              <div className={"no-data"}>
                 <img src="/img/icons/icoAlert.svg" alt="" />
                 <p>No Agents found!</p>
               </div>
             ) : (
               agents.map((agent: Member) => {
-                return <AgentCard agent={agent} key={agent._id} likeMemberHandler={likeMemberHandler} />;
+                return (
+                  <AgentCard
+                    agent={agent}
+                    key={agent._id}
+                    likeMemberHandler={likeMemberHandler}
+                  />
+                );
               })
             )}
           </Stack>
-          <Stack className={'pagination'}>
+          <Stack className={"pagination"}>
             <Stack className="pagination-box">
-              {agents.length !== 0 && Math.ceil(total / searchFilter.limit) > 1 && (
-                <Stack className="pagination-box">
-                  <Pagination
-                    page={currentPage}
-                    count={Math.ceil(total / searchFilter.limit)}
-                    onChange={paginationChangeHandler}
-                    shape="circular"
-                    color="primary"
-                  />
-                </Stack>
-              )}
+              {agents.length !== 0 &&
+                Math.ceil(total / searchFilter.limit) > 1 && (
+                  <Stack className="pagination-box">
+                    <Pagination
+                      page={currentPage}
+                      count={Math.ceil(total / searchFilter.limit)}
+                      onChange={paginationChangeHandler}
+                      shape="circular"
+                      color="primary"
+                    />
+                  </Stack>
+                )}
             </Stack>
 
             {agents.length !== 0 && (
               <span>
-                Total {total} agent{total > 1 ? 's' : ''} available
+                Total {total} agent{total > 1 ? "s" : ""} available
               </span>
             )}
           </Stack>
@@ -277,8 +365,8 @@ AgentList.defaultProps = {
   initialInput: {
     page: 1,
     limit: 10,
-    sort: 'createdAt',
-    direction: 'DESC',
+    sort: "createdAt",
+    direction: "DESC",
     search: {},
   },
 };

@@ -6,7 +6,6 @@ import {
   Button,
   OutlinedInput,
   FormControl,
-  InputLabel,
   Select,
   MenuItem,
   Tooltip,
@@ -652,7 +651,7 @@ const Filter = (props: FilterType) => {
                     }}
                   />
 
-                  <Tooltip title="Reset">
+                  <Tooltip title="Reset Filter">
                     <IconButton onClick={refreshHandler}>
                       <RefreshIcon
                         sx={{ width: 20, height: 20, color: "#ffffff" }}
@@ -727,8 +726,8 @@ const Filter = (props: FilterType) => {
               sx={{
                 borderRadius: "12px 0 0 12px",
                 border: !searchFilter?.search?.roomsList
-                  ? "2px solid #181A20"
-                  : "1px solid #b9b9b9",
+                  ? "2px solid #ffffff"
+                  : "1px solid #999999",
               }}
               onClick={() => propertyRoomSelectHandler(0)}
             >
@@ -738,8 +737,8 @@ const Filter = (props: FilterType) => {
               sx={{
                 borderRadius: 0,
                 border: searchFilter?.search?.roomsList?.includes(1)
-                  ? "2px solid #181A20"
-                  : "1px solid #b9b9b9",
+                  ? "2px solid #ffffff"
+                  : "1px solid #999999",
                 borderLeft: searchFilter?.search?.roomsList?.includes(1)
                   ? undefined
                   : "none",
@@ -752,8 +751,8 @@ const Filter = (props: FilterType) => {
               sx={{
                 borderRadius: 0,
                 border: searchFilter?.search?.roomsList?.includes(2)
-                  ? "2px solid #181A20"
-                  : "1px solid #b9b9b9",
+                  ? "2px solid #ffffff"
+                  : "1px solid #999999",
                 borderLeft: searchFilter?.search?.roomsList?.includes(2)
                   ? undefined
                   : "none",
@@ -766,8 +765,8 @@ const Filter = (props: FilterType) => {
               sx={{
                 borderRadius: 0,
                 border: searchFilter?.search?.roomsList?.includes(3)
-                  ? "2px solid #181A20"
-                  : "1px solid #b9b9b9",
+                  ? "2px solid #ffffff"
+                  : "1px solid #999999",
                 borderLeft: searchFilter?.search?.roomsList?.includes(3)
                   ? undefined
                   : "none",
@@ -780,8 +779,8 @@ const Filter = (props: FilterType) => {
               sx={{
                 borderRadius: 0,
                 border: searchFilter?.search?.roomsList?.includes(4)
-                  ? "2px solid #181A20"
-                  : "1px solid #b9b9b9",
+                  ? "2px solid #ffffff"
+                  : "1px solid #999999",
                 borderLeft: searchFilter?.search?.roomsList?.includes(4)
                   ? undefined
                   : "none",
@@ -797,8 +796,8 @@ const Filter = (props: FilterType) => {
               sx={{
                 borderRadius: "0 12px 12px 0",
                 border: searchFilter?.search?.roomsList?.includes(5)
-                  ? "2px solid #181A20"
-                  : "1px solid #b9b9b9",
+                  ? "2px solid #ffffff"
+                  : "1px solid #999999",
               }}
               onClick={() => propertyRoomSelectHandler(5)}
             >
@@ -813,8 +812,8 @@ const Filter = (props: FilterType) => {
               sx={{
                 borderRadius: "12px 0 0 12px",
                 border: !searchFilter?.search?.bedsList
-                  ? "2px solid #181A20"
-                  : "1px solid #b9b9b9",
+                  ? "2px solid #ffffff"
+                  : "1px solid #999999",
               }}
               onClick={() => propertyBedSelectHandler(0)}
             >
@@ -893,53 +892,82 @@ const Filter = (props: FilterType) => {
             </Button>
           </Stack>
         </Stack>
-        <Stack className={"find-your-home"} mb={"30px"}>
-          <Typography className={"title"}>Options</Typography>
-          <Stack className={"input-box"}>
-            <Checkbox
-              id={"Barter"}
-              className="property-checkbox"
-              color="default"
-              size="small"
-              value={"propertyBarter"}
-              checked={(searchFilter?.search?.options || []).includes(
-                "propertyBarter"
-              )}
-              onChange={propertyOptionSelectHandler}
-            />
-            <label htmlFor={"Barter"} style={{ cursor: "pointer" }}>
-              <Typography className="propert-type">Barter</Typography>
-            </label>
-          </Stack>
-          <Stack className={"input-box"}>
-            <Checkbox
-              id={"Rent"}
-              className="property-checkbox"
-              color="default"
-              size="small"
-              value={"propertyRent"}
-              checked={(searchFilter?.search?.options || []).includes(
-                "propertyRent"
-              )}
-              onChange={propertyOptionSelectHandler}
-            />
-            <label htmlFor={"Rent"} style={{ cursor: "pointer" }}>
-              <Typography className="propert-type">Rent</Typography>
-            </label>
-          </Stack>
-        </Stack>
+        {/* <Stack className={"find-your-home"} mb={"30px"}> */}
+        {/*   <Typography className={"title"}>Options</Typography> */}
+        {/*   <Stack className={"input-box"}> */}
+        {/*     <Checkbox */}
+        {/*       id={"Barter"} */}
+        {/*       className="property-checkbox" */}
+        {/*       color="default" */}
+        {/*       size="small" */}
+        {/*       value={"propertyBarter"} */}
+        {/*       checked={(searchFilter?.search?.options || []).includes( */}
+        {/*         "propertyBarter" */}
+        {/*       )} */}
+        {/*       onChange={propertyOptionSelectHandler} */}
+        {/*     /> */}
+        {/*     <label htmlFor={"Barter"} style={{ cursor: "pointer" }}> */}
+        {/*       <Typography className="property-type">Barter</Typography> */}
+        {/*     </label> */}
+        {/*   </Stack> */}
+        {/*   <Stack className={"input-box"}> */}
+        {/*     <Checkbox */}
+        {/*       id={"Rent"} */}
+        {/*       className="property-checkbox" */}
+        {/*       color="default" */}
+        {/*       size="small" */}
+        {/*       value={"propertyRent"} */}
+        {/*       checked={(searchFilter?.search?.options || []).includes( */}
+        {/*         "propertyRent" */}
+        {/*       )} */}
+        {/*       onChange={propertyOptionSelectHandler} */}
+        {/*     /> */}
+        {/*     <label htmlFor={"Rent"} style={{ cursor: "pointer" }}> */}
+        {/*       <Typography className="property-type">Rent</Typography> */}
+        {/*     </label> */}
+        {/*   </Stack> */}
+        {/* </Stack> */}
         <Stack className={"find-your-home"} mb={"30px"}>
           <Typography className={"title"}>Square meter</Typography>
           <Stack className="square-year-input">
-            <FormControl>
-              <InputLabel id="demo-simple-select-label">Min</InputLabel>
+            <FormControl
+              sx={{
+                background: "#141414",
+                border: "1px solid #262626",
+                borderRadius: "4px",
+                color: "white",
+                "& .MuiInputLabel-root": {
+                  color: "white", // Label color
+                },
+                "& .MuiOutlinedInput-root": {
+                  background: "#141414", // Input background
+                  color: "white",
+                  "& fieldset": { border: "none" }, // Remove MUI default border
+                  "&:hover fieldset": { border: "none" }, // Prevent hover effect
+                  "&.Mui-focused fieldset": { border: "none" }, // Prevent focus outline
+                },
+              }}
+            >
               <Select
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
                 value={searchFilter?.search?.squaresRange?.start ?? 0}
                 label="Min"
                 onChange={(e: any) => propertySquareHandler(e, "start")}
-                MenuProps={MenuProps}
+                MenuProps={{
+                  PaperProps: {
+                    sx: {
+                      backgroundColor: "#141414", // ✅ Dropdown background color
+                      color: "white", // ✅ Dropdown text color
+                      border: "1px solid #262626",
+                    },
+                  },
+                }}
+                sx={{
+                  background: "#141414",
+                  color: "white",
+                  "& .MuiSelect-icon": { color: "white" }, // Dropdown icon color
+                }}
               >
                 {propertySquare.map((square: number) => (
                   <MenuItem
@@ -948,6 +976,19 @@ const Filter = (props: FilterType) => {
                       (searchFilter?.search?.squaresRange?.end || 0) < square
                     }
                     key={square}
+                    sx={{
+                      background: "#141414", // Default background
+                      color: "#ffffff",
+                      "&:hover": {
+                        background: "#262626", // Hover background
+                      },
+                      "&.Mui-selected": {
+                        background: "#262626 !important", // ✅ Selected item background color
+                      },
+                      "&.Mui-selected:hover": {
+                        background: "#262626", // Prevent different hover color for selected item
+                      },
+                    }}
                   >
                     {square}
                   </MenuItem>
@@ -955,23 +996,66 @@ const Filter = (props: FilterType) => {
               </Select>
             </FormControl>
             <div className="central-divider"></div>
-            <FormControl>
-              <InputLabel id="demo-simple-select-label">Max</InputLabel>
+            <FormControl
+              sx={{
+                background: "#141414",
+                border: "1px solid #262626",
+                borderRadius: "4px",
+                color: "white",
+                "& .MuiInputLabel-root": {
+                  color: "white", // Label color
+                },
+                "& .MuiOutlinedInput-root": {
+                  background: "#141414", // Input background
+                  color: "white",
+                  "& fieldset": { border: "none" }, // Remove MUI default border
+                  "&:hover fieldset": { border: "none" }, // Prevent hover effect
+                  "&.Mui-focused fieldset": { border: "none" }, // Prevent focus outline
+                },
+              }}
+            >
               <Select
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
-                value={searchFilter?.search?.squaresRange?.end ?? 500}
-                label="Max"
-                onChange={(e: any) => propertySquareHandler(e, "end")}
-                MenuProps={MenuProps}
+                value={searchFilter?.search?.squaresRange?.end || 500}
+                label="Min"
+                onChange={(e: any) => propertySquareHandler(e, "start")}
+                MenuProps={{
+                  PaperProps: {
+                    sx: {
+                      backgroundColor: "#141414", // ✅ Dropdown background color
+                      color: "white", // ✅ Dropdown text color
+                      border: "1px solid #262626",
+                    },
+                  },
+                }}
+                sx={{
+                  background: "#141414",
+                  color: "white",
+                  "& .MuiSelect-icon": { color: "white" }, // Dropdown icon color
+                }}
               >
                 {propertySquare.map((square: number) => (
                   <MenuItem
                     value={square}
                     disabled={
-                      (searchFilter?.search?.squaresRange?.start || 0) > square
+                      (searchFilter?.search?.squaresRange?.start || 500) <
+                      square
                     }
                     key={square}
+                    sx={{
+                      background: "#141414", // Default background
+                      color: "#ffffff",
+                      "&:hover": {
+                        background: "#262626", // Hover background
+                      },
+                      "&.Mui-selected": {
+                        background: "#262626 !important", // ✅ Selected item background color
+                      },
+                      "&.Mui-selected:hover": {
+                        background: "#262626", // Prevent different hover color for selected item
+                      },
+                    }}
                   >
                     {square}
                   </MenuItem>

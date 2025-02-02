@@ -35,45 +35,46 @@ const withLayoutBasic = (Component: any) => {
           bgImage = "linear-gradient(to right, #262626, #141414 30%)";
           break;
         case "/agent":
-          title = "Agents";
-          desc = "Home / For Rent";
-          bgImage = "/img/banner/agents.webp";
+          title = "Meet the Estatein Agents";
+          desc =
+            "At Estatein, our success is driven by the dedication and expertise of our agents. Get to know the people behind our mission to make your real estate dreams a reality.";
+          bgImage = "linear-gradient(to right, #262626, #141414 30%)";
           break;
         case "/agent/detail":
           title = "Agent Page";
           desc = "Home / For Rent";
-          bgImage = "/img/banner/header2.svg";
+          bgImage = "linear-gradient(to right, #262626, #141414 30%)";
           break;
         case "/mypage":
           title = "my page";
           desc = "Home / For Rent";
-          bgImage = "/img/banner/header1.svg";
+          bgImage = "linear-gradient(to right, #262626, #141414 30%)";
           break;
         case "/community":
           title = "Community";
           desc = "Home / For Rent";
-          bgImage = "/img/banner/header2.svg";
+          bgImage = "linear-gradient(to right, #262626, #141414 30%)";
           break;
         case "/community/detail":
           title = "Community Detail";
           desc = "Home / For Rent";
-          bgImage = "/img/banner/header2.svg";
+          bgImage = "linear-gradient(to right, #262626, #141414 30%)";
           break;
         case "/cs":
           title = "CS";
           desc = "We are glad to see you again!";
-          bgImage = "/img/banner/header2.svg";
+          bgImage = "linear-gradient(to right, #262626, #141414 30%)";
           break;
         case "/account/join":
           title = "Login/Signup";
           desc = "Authentication Process";
-          bgImage = "/img/banner/header2.svg";
+          bgImage = "linear-gradient(to right, #262626, #141414 30%)";
           setAuthHeader(true);
           break;
         case "/member":
           title = "Member Page";
           desc = "Home / For Rent";
-          bgImage = "/img/banner/header1.svg";
+          bgImage = "linear-gradient(to right, #262626, #141414 30%)";
           break;
         default:
           break;

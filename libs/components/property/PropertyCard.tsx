@@ -1,16 +1,17 @@
-import React from 'react';
-import { Stack, Typography, Box } from '@mui/material';
-import useDeviceDetect from '../../hooks/useDeviceDetect';
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
-import { Property } from '../../types/property/property';
-import Link from 'next/link';
-import { formatterStr } from '../../utils';
-import { REACT_APP_API_URL, topPropertyRank } from '../../config';
-import { useReactiveVar } from '@apollo/client';
-import { userVar } from '../../../apollo/store';
-import IconButton from '@mui/material/IconButton';
-import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
+import React from "react";
+import { Stack, Typography, Box, Button } from "@mui/material";
+import useDeviceDetect from "../../hooks/useDeviceDetect";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import { Property } from "../../types/property/property";
+import Link from "next/link";
+import { formatterStr } from "../../utils";
+import { REACT_APP_API_URL, topPropertyRank } from "../../config";
+import { useReactiveVar } from "@apollo/client";
+import { userVar } from "../../../apollo/store";
+import IconButton from "@mui/material/IconButton";
+import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
+import { useRouter } from "next/router";
 
 interface PropertyCardType {
   property: Property;
@@ -23,11 +24,21 @@ const PropertyCard = (props: PropertyCardType) => {
   const { property, likePropertyHandler, myFavorites, recentlyVisited } = props;
   const device = useDeviceDetect();
   const user = useReactiveVar(userVar);
+  const router = useRouter();
   const imagePath: string = property?.propertyImages[0]
     ? `${REACT_APP_API_URL}/${property?.propertyImages[0]}`
-    : '/img/banner/header1.svg';
+    : "/img/banner/header1.svg";
 
-  if (device === 'mobile') {
+  // Handlers
+  const pushDetailHandler = async (propertyId: string) => {
+    console.log("propertyId", propertyId);
+    await router.push({
+      pathname: "/property/detail",
+      query: { id: propertyId },
+    });
+  };
+
+  if (device === "mobile") {
     return <div>PROPERTY CARD</div>;
   } else {
     return (
@@ -35,19 +46,19 @@ const PropertyCard = (props: PropertyCardType) => {
         <Stack className="top">
           <Link
             href={{
-              pathname: '/property/detail',
+              pathname: "/property/detail",
               query: { id: property?._id },
             }}
           >
             <img src={imagePath} alt="" />
           </Link>
           {property && property?.propertyRank > topPropertyRank && (
-            <Box component={'div'} className={'top-badge'}>
+            <Box component={"div"} className={"top-badge"}>
               <img src="/img/icons/electricity.svg" alt="" />
               <Typography>TOP</Typography>
             </Box>
           )}
-          <Box component={'div'} className={'price-box'}>
+          <Box component={"div"} className={"price-box"}>
             <Typography>${formatterStr(property?.propertyPrice)}</Typography>
           </Box>
         </Stack>
@@ -56,7 +67,7 @@ const PropertyCard = (props: PropertyCardType) => {
             <Stack className="name">
               <Link
                 href={{
-                  pathname: '/property/detail',
+                  pathname: "/property/detail",
                   query: { id: property?._id },
                 }}
               >
@@ -71,49 +82,49 @@ const PropertyCard = (props: PropertyCardType) => {
           </Stack>
           <Stack className="options">
             <Stack className="option">
-              <img src="/img/icons/bed.svg" alt="" /> <Typography>{property.propertyBeds} bed</Typography>
+              <img src="/img/icons/bedroom.svg" alt="" />{" "}
+              <p>{property.propertyBeds} bed</p>
             </Stack>
             <Stack className="option">
-              <img src="/img/icons/room.svg" alt="" /> <Typography>{property.propertyRooms} room</Typography>
+              <img src="/img/icons/bathroom.svg" alt="" />{" "}
+              <p>{property.propertyRooms} room</p>
             </Stack>
             <Stack className="option">
-              <img src="/img/icons/expand.svg" alt="" /> <Typography>{property.propertySquare} m2</Typography>
+              <img src="/img/icons/hotel-type.svg" alt="" />{" "}
+              <p>{property.propertySquare} m2</p>
             </Stack>
           </Stack>
-          <Stack className="divider"></Stack>
           <Stack className="type-buttons">
-            <Stack className="type">
-              <Typography
-                sx={{ fontWeight: 500, fontSize: '13px' }}
-                className={property.propertyRent ? '' : 'disabled-type'}
-              >
-                Rent
-              </Typography>
-              <Typography
-                sx={{ fontWeight: 500, fontSize: '13px' }}
-                className={property.propertyBarter ? '' : 'disabled-type'}
-              >
-                Barter
-              </Typography>
-            </Stack>
             {!recentlyVisited && (
               <Stack className="buttons">
-                <IconButton color={'default'}>
+                <IconButton sx={{ color: "#ffffff" }}>
                   <RemoveRedEyeIcon />
                 </IconButton>
-                <Typography className="view-cnt">{property?.propertyViews}</Typography>
-                <IconButton color={'default'} onClick={() => likePropertyHandler(user, property?._id)}>
+                <Typography className="view-cnt">
+                  {property?.propertyViews}
+                </Typography>
+                <IconButton
+                  onClick={() => likePropertyHandler(user, property?._id)}
+                >
                   {myFavorites ? (
-                    <FavoriteIcon color="primary" />
+                    <FavoriteIcon sx={{ color: "red" }} />
                   ) : property?.meLiked && property?.meLiked[0]?.myFavorite ? (
-                    <FavoriteIcon color="primary" />
+                    <FavoriteIcon sx={{ color: "red" }} />
                   ) : (
-                    <FavoriteBorderIcon />
+                    <FavoriteBorderIcon sx={{ color: "white" }} />
                   )}
                 </IconButton>
-                <Typography className="view-cnt">{property?.propertyLikes}</Typography>
+                <Typography className="view-cnt">
+                  {property?.propertyLikes}
+                </Typography>
               </Stack>
             )}
+            <Button
+              onClick={() => pushDetailHandler(property._id)}
+              className="bott-btn"
+            >
+              View Property Details
+            </Button>
           </Stack>
         </Stack>
       </Stack>
