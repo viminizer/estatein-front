@@ -145,7 +145,7 @@ const PopularPropertyCard = (props: PopularPropertyCardProps) => {
               onClick={() => pushDetailHandler(property._id)}
               className="bott-btn"
             >
-              View Hotel
+              View Property Details
             </Button>
           </div>
         </Box>
