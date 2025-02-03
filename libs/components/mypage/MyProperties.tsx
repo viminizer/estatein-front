@@ -1,22 +1,23 @@
-import React, { useState } from 'react';
-import { NextPage } from 'next';
-import { Pagination, Stack, Typography } from '@mui/material';
-import useDeviceDetect from '../../hooks/useDeviceDetect';
-import { PropertyCard } from './PropertyCard';
-import { useMutation, useQuery, useReactiveVar } from '@apollo/client';
-import { Property } from '../../types/property/property';
-import { AgentPropertiesInquiry } from '../../types/property/property.input';
-import { T } from '../../types/common';
-import { PropertyStatus } from '../../enums/property.enum';
-import { userVar } from '../../../apollo/store';
-import { useRouter } from 'next/router';
-import { UPDATE_PROPERTY } from '../../../apollo/user/mutation';
-import { GET_AGENT_PROPERTIES } from '../../../apollo/user/query';
-import { sweetConfirmAlert, sweetErrorHandling } from '../../sweetAlert';
+import React, { useState } from "react";
+import { NextPage } from "next";
+import { Pagination, Stack, Typography } from "@mui/material";
+import useDeviceDetect from "../../hooks/useDeviceDetect";
+import { PropertyCard } from "./PropertyCard";
+import { useMutation, useQuery, useReactiveVar } from "@apollo/client";
+import { Property } from "../../types/property/property";
+import { AgentPropertiesInquiry } from "../../types/property/property.input";
+import { T } from "../../types/common";
+import { PropertyStatus } from "../../enums/property.enum";
+import { userVar } from "../../../apollo/store";
+import { useRouter } from "next/router";
+import { UPDATE_PROPERTY } from "../../../apollo/user/mutation";
+import { GET_AGENT_PROPERTIES } from "../../../apollo/user/query";
+import { sweetConfirmAlert, sweetErrorHandling } from "../../sweetAlert";
 
 const MyProperties: NextPage = ({ initialInput, ...props }: any) => {
   const device = useDeviceDetect();
-  const [searchFilter, setSearchFilter] = useState<AgentPropertiesInquiry>(initialInput);
+  const [searchFilter, setSearchFilter] =
+    useState<AgentPropertiesInquiry>(initialInput);
   const [agentProperties, setAgentProperties] = useState<Property[]>([]);
   const [total, setTotal] = useState<number>(0);
   const user = useReactiveVar(userVar);
@@ -31,7 +32,7 @@ const MyProperties: NextPage = ({ initialInput, ...props }: any) => {
     error: getAgentPropertiesError,
     refetch: getAgentPropertiesRefetch,
   } = useQuery(GET_AGENT_PROPERTIES, {
-    fetchPolicy: 'network-only',
+    fetchPolicy: "network-only",
     variables: { input: searchFilter },
     notifyOnNetworkStatusChange: true,
     onCompleted: (data: T) => {
@@ -51,9 +52,9 @@ const MyProperties: NextPage = ({ initialInput, ...props }: any) => {
 
   const deletePropertyHandler = async (id: string) => {
     try {
-      if (await sweetConfirmAlert('Are you sure to delete this property?')) {
+      if (await sweetConfirmAlert("Are you sure to delete this property?")) {
         await updateProperty({
-          variables: { input: { _id: id, propertyStatus: 'DELETE' } },
+          variables: { input: { _id: id, propertyStatus: "DELETE" } },
         });
         await getAgentPropertiesRefetch({ input: searchFilter });
       }
@@ -64,7 +65,9 @@ const MyProperties: NextPage = ({ initialInput, ...props }: any) => {
 
   const updatePropertyHandler = async (status: string, id: string) => {
     try {
-      if (await sweetConfirmAlert(`Are you sure to change to ${status} status?`)) {
+      if (
+        await sweetConfirmAlert(`Are you sure to change to ${status} status?`)
+      ) {
         await updateProperty({
           variables: {
             input: {
@@ -80,11 +83,11 @@ const MyProperties: NextPage = ({ initialInput, ...props }: any) => {
     }
   };
 
-  if (user?.memberType !== 'AGENT') {
+  if (user?.memberType !== "AGENT") {
     router.back();
   }
 
-  if (device === 'mobile') {
+  if (device === "mobile") {
     return <div>NESTAR PROPERTIES MOBILE</div>;
   } else {
     return (
@@ -92,20 +95,30 @@ const MyProperties: NextPage = ({ initialInput, ...props }: any) => {
         <Stack className="main-title-box">
           <Stack className="right-box">
             <Typography className="main-title">My Properties</Typography>
-            <Typography className="sub-title">We are glad to see you again!</Typography>
+            <Typography className="sub-title">
+              We are glad to see you again!
+            </Typography>
           </Stack>
         </Stack>
         <Stack className="property-list-box">
           <Stack className="tab-name-box">
             <Typography
               onClick={() => changeStatusHandler(PropertyStatus.ACTIVE)}
-              className={searchFilter.search.propertyStatus === 'ACTIVE' ? 'active-tab-name' : 'tab-name'}
+              className={
+                searchFilter.search.propertyStatus === "ACTIVE"
+                  ? "active-tab-name"
+                  : "tab-name"
+              }
             >
               On Sale
             </Typography>
             <Typography
               onClick={() => changeStatusHandler(PropertyStatus.SOLD)}
-              className={searchFilter.search.propertyStatus === 'SOLD' ? 'active-tab-name' : 'tab-name'}
+              className={
+                searchFilter.search.propertyStatus === "SOLD"
+                  ? "active-tab-name"
+                  : "tab-name"
+              }
             >
               On Sold
             </Typography>
@@ -116,13 +129,13 @@ const MyProperties: NextPage = ({ initialInput, ...props }: any) => {
               <Typography className="title-text">Date Published</Typography>
               <Typography className="title-text">Status</Typography>
               <Typography className="title-text">View</Typography>
-              {searchFilter.search.propertyStatus === 'ACTIVE' && (
+              {searchFilter.search.propertyStatus === "ACTIVE" && (
                 <Typography className="title-text">Action</Typography>
               )}
             </Stack>
 
             {agentProperties?.length === 0 ? (
-              <div className={'no-data'}>
+              <div className={"no-data"}>
                 <img src="/img/icons/icoAlert.svg" alt="" />
                 <p>No Property found!</p>
               </div>
@@ -147,6 +160,11 @@ const MyProperties: NextPage = ({ initialInput, ...props }: any) => {
                     shape="circular"
                     color="primary"
                     onChange={paginationHandler}
+                    sx={{
+                      ".MuiPaginationItem-icon": {
+                        color: "red", // Change to the desired color
+                      },
+                    }}
                   />
                 </Stack>
                 <Stack className="total-result">
@@ -165,9 +183,9 @@ MyProperties.defaultProps = {
   initialInput: {
     page: 1,
     limit: 5,
-    sort: 'createdAt',
+    sort: "createdAt",
     search: {
-      propertyStatus: 'ACTIVE',
+      propertyStatus: "ACTIVE",
     },
   },
 };
