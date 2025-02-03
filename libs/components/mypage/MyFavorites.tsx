@@ -1,21 +1,24 @@
-import React, { useState } from 'react';
-import { NextPage } from 'next';
-import useDeviceDetect from '../../hooks/useDeviceDetect';
-import { Pagination, Stack, Typography } from '@mui/material';
-import PropertyCard from '../property/PropertyCard';
-import { Property } from '../../types/property/property';
-import { T } from '../../types/common';
-import { LIKE_TARGET_PROPERTY } from '../../../apollo/user/mutation';
-import { useMutation, useQuery } from '@apollo/client';
-import { GET_FAVORITES } from '../../../apollo/user/query';
-import { sweetMixinErrorAlert } from '../../sweetAlert';
-import { Messages } from '../../config';
+import React, { useState } from "react";
+import { NextPage } from "next";
+import useDeviceDetect from "../../hooks/useDeviceDetect";
+import { Pagination, Stack, Typography } from "@mui/material";
+import PropertyCard from "../property/PropertyCard";
+import { Property } from "../../types/property/property";
+import { T } from "../../types/common";
+import { LIKE_TARGET_PROPERTY } from "../../../apollo/user/mutation";
+import { useMutation, useQuery } from "@apollo/client";
+import { GET_FAVORITES } from "../../../apollo/user/query";
+import { sweetMixinErrorAlert } from "../../sweetAlert";
+import { Messages } from "../../config";
 
 const MyFavorites: NextPage = () => {
   const device = useDeviceDetect();
   const [myFavorites, setMyFavorites] = useState<Property[]>([]);
   const [total, setTotal] = useState<number>(0);
-  const [searchFavorites, setSearchFavorites] = useState<T>({ page: 1, limit: 6 });
+  const [searchFavorites, setSearchFavorites] = useState<T>({
+    page: 1,
+    limit: 6,
+  });
 
   /** APOLLO REQUESTS **/
   const [likeTargetProperty] = useMutation(LIKE_TARGET_PROPERTY);
@@ -26,7 +29,7 @@ const MyFavorites: NextPage = () => {
     error: getFavoritesError,
     refetch: getFavoritesRefetch,
   } = useQuery(GET_FAVORITES, {
-    fetchPolicy: 'network-only',
+    fetchPolicy: "network-only",
     variables: { input: searchFavorites },
     notifyOnNetworkStatusChange: true,
     onCompleted: (data: T) => {
@@ -51,12 +54,12 @@ const MyFavorites: NextPage = () => {
       });
       await getFavoritesRefetch({ input: searchFavorites });
     } catch (err: any) {
-      console.log('ERROR, likePropertyHandler:', err);
+      console.log("ERROR, likePropertyHandler:", err);
       sweetMixinErrorAlert(err.message).then();
     }
   };
 
-  if (device === 'mobile') {
+  if (device === "mobile") {
     return <div>NESTAR MY FAVORITES MOBILE</div>;
   } else {
     return (
@@ -64,16 +67,24 @@ const MyFavorites: NextPage = () => {
         <Stack className="main-title-box">
           <Stack className="right-box">
             <Typography className="main-title">My Favorites</Typography>
-            <Typography className="sub-title">We are glad to see you again!</Typography>
+            <Typography className="sub-title">
+              We are glad to see you again!
+            </Typography>
           </Stack>
         </Stack>
         <Stack className="favorites-list-box">
           {myFavorites?.length ? (
             myFavorites?.map((property: Property) => {
-              return <PropertyCard property={property} likePropertyHandler={likePropertyHandler} myFavorites={true} />;
+              return (
+                <PropertyCard
+                  property={property}
+                  likePropertyHandler={likePropertyHandler}
+                  myFavorites={true}
+                />
+              );
             })
           ) : (
-            <div className={'no-data'}>
+            <div className={"no-data"}>
               <img src="/img/icons/icoAlert.svg" alt="" />
               <p>No Favorites found!</p>
             </div>
@@ -88,11 +99,23 @@ const MyFavorites: NextPage = () => {
                 shape="circular"
                 color="primary"
                 onChange={paginationHandler}
+                sx={{
+                  ".MuiPaginationItem-root": {
+                    color: "red", // Change number color
+                  },
+                  ".Mui-selected": {
+                    color: "white", // Selected number color
+                    backgroundColor: "red", // Selected background color
+                  },
+                  ".MuiPaginationItem-icon": {
+                    color: "#703bf7",
+                  },
+                }}
               />
             </Stack>
             <Stack className="total-result">
               <Typography>
-                Total {total} favorite propert{total > 1 ? 'ies' : 'y'}
+                Total {total} favorite propert{total > 1 ? "ies" : "y"}
               </Typography>
             </Stack>
           </Stack>

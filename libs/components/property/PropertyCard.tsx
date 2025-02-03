@@ -119,6 +119,7 @@ const PropertyCard = (props: PropertyCardType) => {
                 </Typography>
               </Stack>
             )}
+
             <Button
               onClick={() => pushDetailHandler(property._id)}
               className="bott-btn"
