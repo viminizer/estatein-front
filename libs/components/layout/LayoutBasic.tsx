@@ -75,7 +75,7 @@ const withLayoutBasic = (Component: any) => {
         case "/member":
           title = "Member Page";
           desc = "Home / For Rent";
-          bgImage = "linear-gradient(to right, #262626, #141414 30%)";
+          bgImage = "url(/img/banner/cubes.png)";
           break;
         default:
           break;
