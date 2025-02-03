@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
-import { NextPage } from 'next';
-import useDeviceDetect from '../../hooks/useDeviceDetect';
-import { Pagination, Stack, Typography } from '@mui/material';
-import PropertyCard from '../property/PropertyCard';
-import { Property } from '../../types/property/property';
-import { T } from '../../types/common';
-import { useQuery } from '@apollo/client';
-import { GET_VISITED } from '../../../apollo/user/query';
+import React, { useState } from "react";
+import { NextPage } from "next";
+import useDeviceDetect from "../../hooks/useDeviceDetect";
+import { Pagination, Stack, Typography } from "@mui/material";
+import PropertyCard from "../property/PropertyCard";
+import { Property } from "../../types/property/property";
+import { T } from "../../types/common";
+import { useQuery } from "@apollo/client";
+import { GET_VISITED } from "../../../apollo/user/query";
 
 const RecentlyVisited: NextPage = () => {
   const device = useDeviceDetect();
@@ -21,7 +21,7 @@ const RecentlyVisited: NextPage = () => {
     error: getVisitedError,
     refetch: getVisitedRefetch,
   } = useQuery(GET_VISITED, {
-    fetchPolicy: 'network-only',
+    fetchPolicy: "network-only",
     variables: {
       input: searchVisited,
     },
@@ -37,7 +37,7 @@ const RecentlyVisited: NextPage = () => {
     setSearchVisited({ ...searchVisited, page: value });
   };
 
-  if (device === 'mobile') {
+  if (device === "mobile") {
     return <div>NESTAR MY FAVORITES MOBILE</div>;
   } else {
     return (
@@ -45,16 +45,20 @@ const RecentlyVisited: NextPage = () => {
         <Stack className="main-title-box">
           <Stack className="right-box">
             <Typography className="main-title">Recently Visited</Typography>
-            <Typography className="sub-title">We are glad to see you again!</Typography>
+            <Typography className="sub-title">
+              We are glad to see you again!
+            </Typography>
           </Stack>
         </Stack>
         <Stack className="favorites-list-box">
           {recentlyVisited?.length ? (
             recentlyVisited?.map((property: Property) => {
-              return <PropertyCard property={property} recentlyVisited={true} />;
+              return (
+                <PropertyCard property={property} recentlyVisited={true} />
+              );
             })
           ) : (
-            <div className={'no-data'}>
+            <div className={"no-data"}>
               <img src="/img/icons/icoAlert.svg" alt="" />
               <p>No Recently Visited Properties found!</p>
             </div>
@@ -69,11 +73,23 @@ const RecentlyVisited: NextPage = () => {
                 shape="circular"
                 color="primary"
                 onChange={paginationHandler}
+                sx={{
+                  ".MuiPaginationItem-root": {
+                    color: "red", // Change number color
+                  },
+                  ".Mui-selected": {
+                    color: "white", // Selected number color
+                    backgroundColor: "red", // Selected background color
+                  },
+                  ".MuiPaginationItem-icon": {
+                    color: "#703bf7",
+                  },
+                }}
               />
             </Stack>
             <Stack className="total-result">
               <Typography>
-                Total {total} recently visited propert{total > 1 ? 'ies' : 'y'}
+                Total {total} recently visited propert{total > 1 ? "ies" : "y"}
               </Typography>
             </Stack>
           </Stack>
