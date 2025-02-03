@@ -7,6 +7,7 @@
   height: 455px;
   display: flex;
   flex-direction: column;
+
   .card-img {
     position: relative;
     width: 100%;
@@ -157,24 +158,37 @@
     }
   }
 }
+
 .agent-general-card {
   position: relative;
-  margin-left: 10px;
   margin-bottom: 34px;
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid #262626;
+  border-radius: 10px;
+  transition: transform 0.3s;
+  &:hover {
+    transform: scale(1.03);
+  }
+
   .agent-img {
     border-radius: 12px;
-    width: 233px;
-    height: 273px;
-    background-size: 100% 100%;
+    width: 213px;
+    height: 253px;
+    margin-top: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+    background-size: cover;
     background-repeat: no-repeat;
     cursor: pointer;
+
     div {
       position: absolute;
       padding: 12px;
-      top: 12px;
-      left: 12px;
+      left: 20px;
+      bottom: 95px;
       border-radius: 6px;
       background: #eb6753;
       color: #fff;
@@ -185,17 +199,31 @@
       line-height: normal;
     }
   }
+
   .agent-desc {
     margin-top: 23px;
+    margin-bottom: 10px;
+    width: 213px;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+    gap: 10px;
+    padding-right: 10px;
+    padding-left: 10px;
+
     .agent-info {
       display: flex;
       flex-direction: column;
+      overflow: hidden;
+      color: white;
+      white-space: nowrap; /* Prevents text from wrapping */
+      overflow: hidden; /* Hides the overflowing text */
+      position: relative;
+      width: 100px;
+
       strong {
-        color: #181a20;
+        color: #ffffff;
         font-family: $font;
         font-size: 15px;
         font-style: normal;
@@ -204,7 +232,7 @@
         cursor: pointer;
       }
       span {
-        color: #181a20;
+        color: #999999;
         font-family: $font;
         font-size: 15px;
         font-style: normal;
@@ -225,6 +253,7 @@
       }
       .view-cnt {
         font-size: 13px;
+        color: #ffffff;
       }
     }
   }
