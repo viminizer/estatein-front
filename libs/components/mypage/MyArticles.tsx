@@ -1,17 +1,16 @@
-import React, { useMemo, useState } from 'react';
-import { NextPage } from 'next';
-import useDeviceDetect from '../../hooks/useDeviceDetect';
-import { Pagination, Stack, Typography } from '@mui/material';
-import CommunityCard from '../common/CommunityCard';
-import { useMutation, useQuery, useReactiveVar } from '@apollo/client';
-import { userVar } from '../../../apollo/store';
-import { T } from '../../types/common';
-import { BoardArticle } from '../../types/board-article/board-article';
-import { LIKE_TARGET_BOARD_ARTICLE } from '../../../apollo/user/mutation';
-import { GET_BOARD_ARTICLES } from '../../../apollo/user/query';
-import { sweetMixinErrorAlert, sweetTopSuccessAlert } from '../../sweetAlert';
-import { Messages } from '../../config';
-
+import React, { useMemo, useState } from "react";
+import { NextPage } from "next";
+import useDeviceDetect from "../../hooks/useDeviceDetect";
+import { Pagination, Stack, Typography } from "@mui/material";
+import CommunityCard from "../common/CommunityCard";
+import { useMutation, useQuery, useReactiveVar } from "@apollo/client";
+import { userVar } from "../../../apollo/store";
+import { T } from "../../types/common";
+import { BoardArticle } from "../../types/board-article/board-article";
+import { LIKE_TARGET_BOARD_ARTICLE } from "../../../apollo/user/mutation";
+import { GET_BOARD_ARTICLES } from "../../../apollo/user/query";
+import { sweetMixinErrorAlert, sweetTopSuccessAlert } from "../../sweetAlert";
+import { Messages } from "../../config";
 const MyArticles: NextPage = ({ initialInput, ...props }: T) => {
   const device = useDeviceDetect();
   const user = useReactiveVar(userVar);
@@ -25,20 +24,20 @@ const MyArticles: NextPage = ({ initialInput, ...props }: T) => {
   /** APOLLO REQUESTS **/
   const [likeTargetBoardArticle] = useMutation(LIKE_TARGET_BOARD_ARTICLE);
 
-  console.log('SEARCHCOMMUNITY', searchCommunity);
+  console.log("SEARCHCOMMUNITY", searchCommunity);
   const {
     loading: boardArticlesLoading,
     data: boardArticlesData,
     error: boardArticlesError,
     refetch: boardArticlesRefetch,
   } = useQuery(GET_BOARD_ARTICLES, {
-    fetchPolicy: 'network-only',
+    fetchPolicy: "network-only",
     variables: {
       input: searchCommunity,
     },
     notifyOnNetworkStatusChange: true,
     onCompleted: (data: T) => {
-      console.log('data', data);
+      console.log("data", data);
       setBoardArticles(data.getBoardArticles?.list);
       setTotalCount(data?.getBoardArticles?.metaCounter[0]?.total ?? 0);
     },
@@ -60,14 +59,14 @@ const MyArticles: NextPage = ({ initialInput, ...props }: T) => {
         },
       });
       await boardArticlesRefetch({ input: searchCommunity });
-      await sweetTopSuccessAlert('successfull', 750);
+      await sweetTopSuccessAlert("successfull", 750);
     } catch (err: any) {
-      console.log('ERROR, likeBoardArticleHandler', err.message);
+      console.log("ERROR, likeBoardArticleHandler", err.message);
       sweetMixinErrorAlert(err.message).then();
     }
   };
 
-  if (device === 'mobile') {
+  if (device === "mobile") {
     return <>ARTICLE PAGE MOBILE</>;
   } else
     return (
@@ -75,7 +74,9 @@ const MyArticles: NextPage = ({ initialInput, ...props }: T) => {
         <Stack className="main-title-box">
           <Stack className="right-box">
             <Typography className="main-title">Article</Typography>
-            <Typography className="sub-title">We are glad to see you again!</Typography>
+            <Typography className="sub-title">
+              We are glad to see you again!
+            </Typography>
           </Stack>
         </Stack>
         <Stack className="article-list-box">
@@ -85,13 +86,13 @@ const MyArticles: NextPage = ({ initialInput, ...props }: T) => {
                 <CommunityCard
                   boardArticle={boardArticle}
                   key={boardArticle?._id}
-                  size={'small'}
+                  size={"small"}
                   likeArticleHandler={likeBoardArticleHandler}
                 />
               );
             })
           ) : (
-            <div className={'no-data'}>
+            <div className={"no-data"}>
               <img src="/img/icons/icoAlert.svg" alt="" />
               <p>No Articles found!</p>
             </div>
@@ -107,10 +108,24 @@ const MyArticles: NextPage = ({ initialInput, ...props }: T) => {
                 shape="circular"
                 color="primary"
                 onChange={paginationHandler}
+                sx={{
+                  ".MuiPaginationItem-root": {
+                    color: "red", // Change number color
+                  },
+                  ".Mui-selected": {
+                    color: "white", // Selected number color
+                    backgroundColor: "red", // Selected background color
+                  },
+                  ".MuiPaginationItem-icon": {
+                    color: "#703bf7",
+                  },
+                }}
               />
             </Stack>
             <Stack className="total">
-              <Typography>Total {totalCount ?? 0} article(s) available</Typography>
+              <Typography>
+                Total {totalCount ?? 0} article(s) available
+              </Typography>
             </Stack>
           </Stack>
         )}
@@ -122,8 +137,8 @@ MyArticles.defaultProps = {
   initialInput: {
     page: 1,
     limit: 6,
-    sort: 'createdAt',
-    direction: 'DESC',
+    sort: "createdAt",
+    direction: "DESC",
     search: {},
   },
 };
