@@ -52,7 +52,8 @@ const withLayoutBasic = (Component: any) => {
           break;
         case "/community":
           title = "Community";
-          desc = "Home / For Rent";
+          desc =
+            "Explore a variety of insightful articles shared by our community, covering everything from helpful tips to trending topics. Join the conversation and contribute your own knowledge!";
           bgImage = "linear-gradient(to right, #262626, #141414 30%)";
           break;
         case "/community/detail":

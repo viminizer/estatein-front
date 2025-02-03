@@ -1,16 +1,16 @@
-import React from 'react';
-import { useRouter } from 'next/router';
-import useDeviceDetect from '../../hooks/useDeviceDetect';
-import { Stack, Typography } from '@mui/material';
-import { BoardArticle } from '../../types/board-article/board-article';
-import Moment from 'react-moment';
-import { REACT_APP_API_URL } from '../../config';
-import { useReactiveVar } from '@apollo/client';
-import { userVar } from '../../../apollo/store';
-import IconButton from '@mui/material/IconButton';
-import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import React from "react";
+import { useRouter } from "next/router";
+import useDeviceDetect from "../../hooks/useDeviceDetect";
+import { Stack, Typography } from "@mui/material";
+import { BoardArticle } from "../../types/board-article/board-article";
+import Moment from "react-moment";
+import { REACT_APP_API_URL } from "../../config";
+import { useReactiveVar } from "@apollo/client";
+import { userVar } from "../../../apollo/store";
+import IconButton from "@mui/material/IconButton";
+import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 
 interface CommunityCardProps {
   boardArticle: BoardArticle;
@@ -19,44 +19,50 @@ interface CommunityCardProps {
 }
 
 const CommunityCard = (props: CommunityCardProps) => {
-  const { likeArticleHandler, boardArticle, size = 'normal' } = props;
+  const { likeArticleHandler, boardArticle, size = "normal" } = props;
   const device = useDeviceDetect();
   const router = useRouter();
   const user = useReactiveVar(userVar);
   const imagePath: string = boardArticle?.articleImage
     ? `${REACT_APP_API_URL}/${boardArticle?.articleImage}`
-    : '/img/community/communityImg.png';
+    : "/img/community/communityImg.png";
 
   /** HANDLERS **/
-  const chooseArticleHandler = (e: React.SyntheticEvent, boardArticle: BoardArticle) => {
+  const chooseArticleHandler = (
+    e: React.SyntheticEvent,
+    boardArticle: BoardArticle
+  ) => {
     router.push(
       {
-        pathname: '/community/detail',
-        query: { articleCategory: boardArticle?.articleCategory, id: boardArticle?._id },
+        pathname: "/community/detail",
+        query: {
+          articleCategory: boardArticle?.articleCategory,
+          id: boardArticle?._id,
+        },
       },
       undefined,
-      { shallow: true },
+      { shallow: true }
     );
   };
 
   const goMemberPage = (id: string) => {
-    if (id === user?._id) router.push('/mypage');
+    if (id === user?._id) router.push("/mypage");
     else router.push(`/member?memberId=${id}`);
   };
 
-  if (device === 'mobile') {
+  if (device === "mobile") {
     return <div>COMMUNITY CARD MOBILE</div>;
   } else {
     return (
       <Stack
-        sx={{ width: size === 'small' ? '285px' : '317px' }}
+        sx={{ width: size === "small" ? "285px" : "317px" }}
         className="community-general-card-config"
         onClick={(e) => chooseArticleHandler(e, boardArticle)}
       >
         <Stack className="image-box">
           <img src={imagePath} alt="" className="card-img" />
         </Stack>
-        <Stack className="desc-box" sx={{ marginTop: '-20px' }}>
+        <Stack className="desc-box" sx={{ marginTop: "-20px" }}>
           <Stack>
             <Typography
               className="desc"
@@ -67,29 +73,41 @@ const CommunityCard = (props: CommunityCardProps) => {
             >
               {boardArticle?.memberData?.memberNick}
             </Typography>
-            <Typography className="title">{boardArticle?.articleTitle}</Typography>
+            <Typography className="title">
+              {boardArticle?.articleTitle}
+            </Typography>
           </Stack>
-          <Stack className={'buttons'}>
-            <IconButton color={'default'}>
+          <Stack className={"buttons"}>
+            <IconButton style={{ color: "white" }}>
               <RemoveRedEyeIcon />
             </IconButton>
-            <Typography className="view-cnt">{boardArticle?.articleViews}</Typography>
-            <IconButton color={'default'}>
+            <Typography className="view-cnt">
+              {boardArticle?.articleViews}
+            </Typography>
+            <IconButton color={"default"}>
               {boardArticle?.meLiked && boardArticle?.meLiked[0]?.myFavorite ? (
-                <FavoriteIcon color={'primary'} onClick={(e) => likeArticleHandler(e, user, boardArticle._id)} />
+                <FavoriteIcon
+                  color={"primary"}
+                  onClick={(e) => likeArticleHandler(e, user, boardArticle._id)}
+                />
               ) : (
-                <FavoriteBorderIcon onClick={(e) => likeArticleHandler(e, user, boardArticle._id)} />
+                <FavoriteBorderIcon
+                  onClick={(e) => likeArticleHandler(e, user, boardArticle._id)}
+                  style={{ color: "white" }}
+                />
               )}
             </IconButton>
-            <Typography className="view-cnt">{boardArticle?.articleLikes}</Typography>
+            <Typography className="view-cnt">
+              {boardArticle?.articleLikes}
+            </Typography>
           </Stack>
         </Stack>
         <Stack className="date-box">
-          <Moment className="month" format={'MMMM'}>
+          <Moment className="month" format={"MMMM"}>
             {boardArticle?.createdAt}
           </Moment>
           <Typography className="day">
-            <Moment format={'DD'}>{boardArticle?.createdAt}</Moment>
+            <Moment format={"DD"}>{boardArticle?.createdAt}</Moment>
           </Typography>
         </Stack>
       </Stack>

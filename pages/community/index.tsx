@@ -1,25 +1,28 @@
-import React, { useEffect, useState } from 'react';
-import { NextPage } from 'next';
-import { useRouter } from 'next/router';
-import { TabContext, TabList, TabPanel } from '@mui/lab';
-import { Stack, Tab, Typography, Button, Pagination } from '@mui/material';
-import CommunityCard from '../../libs/components/common/CommunityCard';
-import useDeviceDetect from '../../libs/hooks/useDeviceDetect';
-import withLayoutBasic from '../../libs/components/layout/LayoutBasic';
-import { BoardArticle } from '../../libs/types/board-article/board-article';
-import { T } from '../../libs/types/common';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import { BoardArticlesInquiry } from '../../libs/types/board-article/board-article.input';
-import { BoardArticleCategory } from '../../libs/enums/board-article.enum';
-import { useMutation, useQuery } from '@apollo/client';
-import { GET_BOARD_ARTICLES } from '../../apollo/user/query';
-import { LIKE_TARGET_BOARD_ARTICLE } from '../../apollo/user/mutation';
-import { sweetMixinErrorAlert, sweetTopSmallSuccessAlert } from '../../libs/sweetAlert';
-import { Messages } from '../../libs/config';
+import React, { useEffect, useState } from "react";
+import { NextPage } from "next";
+import { useRouter } from "next/router";
+import { TabContext, TabList, TabPanel } from "@mui/lab";
+import { Stack, Tab, Typography, Button, Pagination } from "@mui/material";
+import CommunityCard from "../../libs/components/common/CommunityCard";
+import useDeviceDetect from "../../libs/hooks/useDeviceDetect";
+import withLayoutBasic from "../../libs/components/layout/LayoutBasic";
+import { BoardArticle } from "../../libs/types/board-article/board-article";
+import { T } from "../../libs/types/common";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { BoardArticlesInquiry } from "../../libs/types/board-article/board-article.input";
+import { BoardArticleCategory } from "../../libs/enums/board-article.enum";
+import { useMutation, useQuery } from "@apollo/client";
+import { GET_BOARD_ARTICLES } from "../../apollo/user/query";
+import { LIKE_TARGET_BOARD_ARTICLE } from "../../apollo/user/mutation";
+import {
+  sweetMixinErrorAlert,
+  sweetTopSmallSuccessAlert,
+} from "../../libs/sweetAlert";
+import { Messages } from "../../libs/config";
 
 export const getStaticProps = async ({ locale }: any) => ({
   props: {
-    ...(await serverSideTranslations(locale, ['common'])),
+    ...(await serverSideTranslations(locale, ["common"])),
   },
 });
 
@@ -28,7 +31,8 @@ const Community: NextPage = ({ initialInput, ...props }: T) => {
   const router = useRouter();
   const { query } = router;
   const articleCategory = query?.articleCategory as string;
-  const [searchCommunity, setSearchCommunity] = useState<BoardArticlesInquiry>(initialInput);
+  const [searchCommunity, setSearchCommunity] =
+    useState<BoardArticlesInquiry>(initialInput);
   const [boardArticles, setBoardArticles] = useState<BoardArticle[]>([]);
   const [totalCount, setTotalCount] = useState<number>(0);
   if (articleCategory) initialInput.search.articleCategory = articleCategory;
@@ -42,7 +46,7 @@ const Community: NextPage = ({ initialInput, ...props }: T) => {
     error: getBoardArticlesError,
     refetch: getBoardArticlesRefetch,
   } = useQuery(GET_BOARD_ARTICLES, {
-    fetchPolicy: 'cache-and-network',
+    fetchPolicy: "cache-and-network",
     variables: { input: searchCommunity },
     notifyOnNetworkStatusChange: true,
     onCompleted: (data: T) => {
@@ -57,10 +61,10 @@ const Community: NextPage = ({ initialInput, ...props }: T) => {
       router.push(
         {
           pathname: router.pathname,
-          query: { articleCategory: 'FREE' },
+          query: { articleCategory: "FREE" },
         },
         router.pathname,
-        { shallow: true },
+        { shallow: true }
       );
   }, []);
 
@@ -72,22 +76,26 @@ const Community: NextPage = ({ initialInput, ...props }: T) => {
       if (!user._id) throw new Error(Messages.error2);
       await likeTargetBoardArticle({ variables: { input: id } });
       await getBoardArticlesRefetch({ input: searchCommunity });
-      await sweetTopSmallSuccessAlert('success', 800);
+      await sweetTopSmallSuccessAlert("success", 800);
     } catch (err: any) {
-      console.log('ERROR, likeArticleHandler', err);
+      console.log("ERROR, likeArticleHandler", err);
       sweetMixinErrorAlert(err.message).then();
     }
   };
   const tabChangeHandler = async (e: T, value: string) => {
     console.log(value);
-    setSearchCommunity({ ...searchCommunity, page: 1, search: { articleCategory: value as BoardArticleCategory } });
+    setSearchCommunity({
+      ...searchCommunity,
+      page: 1,
+      search: { articleCategory: value as BoardArticleCategory },
+    });
     await router.push(
       {
-        pathname: '/community',
+        pathname: "/community",
         query: { articleCategory: value },
       },
       router.pathname,
-      { shallow: true },
+      { shallow: true }
     );
   };
 
@@ -95,7 +103,7 @@ const Community: NextPage = ({ initialInput, ...props }: T) => {
     setSearchCommunity({ ...searchCommunity, page: value });
   };
 
-  if (device === 'mobile') {
+  if (device === "mobile") {
     return <h1>COMMUNITY PAGE MOBILE</h1>;
   } else {
     return (
@@ -104,10 +112,11 @@ const Community: NextPage = ({ initialInput, ...props }: T) => {
           <TabContext value={searchCommunity.search.articleCategory}>
             <Stack className="main-box">
               <Stack className="left-config">
-                <Stack className={'image-info'}>
-                  <img src={'/img/logo/logoText.svg'} />
-                  <Stack className={'community-name'}>
-                    <Typography className={'name'}>Nestar Community</Typography>
+                <Stack className={"image-info"}>
+                  <Stack className={"community-name"}>
+                    <Typography className={"name"}>
+                      Estatein Community
+                    </Typography>
                   </Stack>
                 </Stack>
 
@@ -115,29 +124,41 @@ const Community: NextPage = ({ initialInput, ...props }: T) => {
                   orientation="vertical"
                   aria-label="lab API tabs example"
                   TabIndicatorProps={{
-                    style: { display: 'none' },
+                    style: { display: "none" },
                   }}
                   onChange={tabChangeHandler}
                 >
                   <Tab
-                    value={'FREE'}
-                    label={'Free Board'}
-                    className={`tab-button ${searchCommunity.search.articleCategory == 'FREE' ? 'active' : ''}`}
+                    value={"FREE"}
+                    label={"Free Board"}
+                    className={`tab-button ${searchCommunity.search.articleCategory == "FREE"
+                        ? "active"
+                        : ""
+                      }`}
                   />
                   <Tab
-                    value={'RECOMMEND'}
-                    label={'Recommendation'}
-                    className={`tab-button ${searchCommunity.search.articleCategory == 'RECOMMEND' ? 'active' : ''}`}
+                    value={"RECOMMEND"}
+                    label={"Recommendation"}
+                    className={`tab-button ${searchCommunity.search.articleCategory == "RECOMMEND"
+                        ? "active"
+                        : ""
+                      }`}
                   />
                   <Tab
-                    value={'NEWS'}
-                    label={'News'}
-                    className={`tab-button ${searchCommunity.search.articleCategory == 'NEWS' ? 'active' : ''}`}
+                    value={"NEWS"}
+                    label={"News"}
+                    className={`tab-button ${searchCommunity.search.articleCategory == "NEWS"
+                        ? "active"
+                        : ""
+                      }`}
                   />
                   <Tab
-                    value={'HUMOR'}
-                    label={'Humor'}
-                    className={`tab-button ${searchCommunity.search.articleCategory == 'HUMOR' ? 'active' : ''}`}
+                    value={"HUMOR"}
+                    label={"Humor"}
+                    className={`tab-button ${searchCommunity.search.articleCategory == "HUMOR"
+                        ? "active"
+                        : ""
+                      }`}
                   />
                 </TabList>
               </Stack>
@@ -145,17 +166,20 @@ const Community: NextPage = ({ initialInput, ...props }: T) => {
                 <Stack className="panel-config">
                   <Stack className="title-box">
                     <Stack className="left">
-                      <Typography className="title">{searchCommunity.search.articleCategory} BOARD</Typography>
+                      <Typography className="title">
+                        {searchCommunity.search.articleCategory} BOARD
+                      </Typography>
                       <Typography className="sub-title">
-                        Express your opinions freely here without content restrictions
+                        Express your opinions freely here without content
+                        restrictions
                       </Typography>
                     </Stack>
                     <Button
                       onClick={() =>
                         router.push({
-                          pathname: '/mypage',
+                          pathname: "/mypage",
                           query: {
-                            category: 'writeArticle',
+                            category: "writeArticle",
                           },
                         })
                       }
@@ -178,7 +202,7 @@ const Community: NextPage = ({ initialInput, ...props }: T) => {
                           );
                         })
                       ) : (
-                        <Stack className={'no-data'}>
+                        <Stack className={"no-data"}>
                           <img src="/img/icons/icoAlert.svg" alt="" />
                           <p>No Article found!</p>
                         </Stack>
@@ -198,7 +222,7 @@ const Community: NextPage = ({ initialInput, ...props }: T) => {
                           );
                         })
                       ) : (
-                        <Stack className={'no-data'}>
+                        <Stack className={"no-data"}>
                           <img src="/img/icons/icoAlert.svg" alt="" />
                           <p>No Article found!</p>
                         </Stack>
@@ -218,7 +242,7 @@ const Community: NextPage = ({ initialInput, ...props }: T) => {
                           );
                         })
                       ) : (
-                        <Stack className={'no-data'}>
+                        <Stack className={"no-data"}>
                           <img src="/img/icons/icoAlert.svg" alt="" />
                           <p>No Article found!</p>
                         </Stack>
@@ -238,7 +262,7 @@ const Community: NextPage = ({ initialInput, ...props }: T) => {
                           );
                         })
                       ) : (
-                        <Stack className={'no-data'}>
+                        <Stack className={"no-data"}>
                           <img src="/img/icons/icoAlert.svg" alt="" />
                           <p>No Article found!</p>
                         </Stack>
@@ -259,11 +283,17 @@ const Community: NextPage = ({ initialInput, ...props }: T) => {
                   shape="circular"
                   color="primary"
                   onChange={paginationHandler}
+                  sx={{
+                    ".MuiPaginationItem-icon": {
+                      color: "#703bf7", // Change to the desired color
+                    },
+                  }}
                 />
               </Stack>
               <Stack className="total-result">
                 <Typography>
-                  Total {totalCount} article{totalCount > 1 ? 's' : ''} available
+                  Total {totalCount} article{totalCount > 1 ? "s" : ""}{" "}
+                  available
                 </Typography>
               </Stack>
             </Stack>
@@ -278,10 +308,10 @@ Community.defaultProps = {
   initialInput: {
     page: 1,
     limit: 6,
-    sort: 'createdAt',
-    direction: 'ASC',
+    sort: "createdAt",
+    direction: "ASC",
     search: {
-      articleCategory: 'FREE',
+      articleCategory: "FREE",
     },
   },
 };
