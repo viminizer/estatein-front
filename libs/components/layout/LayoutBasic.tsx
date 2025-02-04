@@ -42,7 +42,8 @@ const withLayoutBasic = (Component: any) => {
           break;
         case "/agent/detail":
           title = "Agent Page";
-          desc = "Home / For Rent";
+          desc =
+            "Explore the profile of the agent, including their expertise, current listings, and performance insights. Get a detailed view of their information to make informed decisions.";
           bgImage = "linear-gradient(to right, #262626, #141414 30%)";
           break;
         case "/mypage":
