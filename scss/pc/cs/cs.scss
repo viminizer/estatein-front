@@ -4,6 +4,8 @@
     padding: 60px 0px 60px;
     width: 100%;
     height: auto;
+    background-color: #141414;
+
     .container {
       display: flex;
       flex-direction: column;
@@ -14,8 +16,9 @@
           display: flex;
           flex-direction: column;
           align-items: center;
+
           span {
-            color: #000;
+            color: #fff;
             font-family: $font;
             font-size: 35px;
             font-style: normal;
@@ -24,7 +27,7 @@
             letter-spacing: 0.525px;
           }
           p {
-            color: #757575;
+            color: #999999;
             font-family: $font;
             font-size: 16px;
             font-style: normal;
@@ -43,25 +46,27 @@
           :last-child {
             border-radius: 0 4px 4px 0;
           }
+
           div {
             width: 204px;
             height: 46px;
             display: flex;
             justify-content: center;
             align-items: center;
-            border: 1px solid #EEE;
+            border: 1px solid #262626;
             cursor: pointer;
-            color: #BDBDBD;
+            color: #ffffff;
             font-family: $font;
             font-size: 14px;
             font-style: normal;
             font-weight: 700;
             line-height: normal;
             letter-spacing: 0.42px;
+
             &.active {
-              border: 1px solid #725CE8;
-              background: #EB6753;
-              color: #FFF;
+              border: 1px solid #725ce8;
+              background: #703bf7;
+              color: #fff;
             }
           }
         }
@@ -72,7 +77,7 @@
         flex-direction: column;
         .title {
           margin-bottom: 25px;
-          color: #000;
+          color: #ffffff;
           font-family: $font;
           font-size: 27px;
           font-style: normal;
@@ -88,14 +93,16 @@
         }
         .notice-content {
           .main {
-            border: 1px solid #EEE;
+            border: 1px solid #262626;
+
             .top {
               padding: 25px 33px;
               display: flex;
               flex-direction: row;
               justify-content: space-between;
+
               span {
-                color: #000;
+                color: #ffffff;
                 font-family: $font;
                 font-size: 14px;
                 font-style: normal;
@@ -104,6 +111,7 @@
                 text-transform: capitalize;
               }
             }
+
             .bottom {
               display: flex;
               flex-direction: column;
@@ -112,15 +120,16 @@
                 display: flex;
                 flex-direction: row;
                 justify-content: space-between;
-                border: 1px solid #EEE;
+                border: 1px solid #262626;
+
                 &.event {
-                  background: #F6D79A;
+                  background: #1a1a1a;
                 }
                 div {
                   padding: 6px 9px;
                   border-radius: 12px;
-                  border: 1px solid #EB6753;
-                  color: #EB6753;
+                  border: 1px solid #262626;
+                  color: red;
                   font-family: $font;
                   font-size: 12px;
                   font-style: normal;
@@ -129,7 +138,7 @@
                 .notice-number {
                   margin-left: 18px;
                   width: 39px;
-                  color: #BDBDBD;
+                  color: #999999;
                   font-family: $font;
                   font-size: 14px;
                   font-style: normal;
@@ -138,7 +147,7 @@
                 }
                 .notice-title {
                   width: 1060px;
-                  color: #000;
+                  color: #ffffff;
                   font-family: $font;
                   font-size: 16px;
                   font-style: normal;
@@ -146,7 +155,7 @@
                   line-height: normal;
                 }
                 .notice-date {
-                  color: #BDBDBD;
+                  color: #999999;
                   font-family: $font;
                   font-size: 14px;
                   font-style: normal;
@@ -155,25 +164,25 @@
                 }
               }
             }
-
           }
-
         }
         .faq-content {
           margin-top: 25px;
           display: flex;
           flex-direction: column;
+
           .categories {
             display: flex;
             flex-direction: row;
             justify-content: center;
+
             div {
               width: 14%;
               height: 40px;
               display: flex;
               justify-content: center;
               align-items: center;
-              color: #BDBDBD;
+              color: #ffffff;
               text-align: center;
               font-family: $font;
               font-size: 15px;
@@ -181,30 +190,35 @@
               font-weight: 400;
               line-height: normal;
               letter-spacing: -0.225px;
+
               cursor: pointer;
               &.active {
-                border-bottom: 1px solid #EB6753;
-                color: #EB6753;
+                border-bottom: 1px solid #703fb7;
+                color: #703fb7;
               }
             }
           }
+
           .wrap {
             margin-top: 50px;
             .MuiAccordionDetails-root {
               padding: 30px 20px;
-              background: #FAFAFA;
+              background: #141414;
             }
             .badge {
               margin: 0 24px;
               display: inline-block;
               padding: 4px 10px;
-              border: 1px solid #725CE8;
               border-radius: 7px;
-              color: #725CE8;
+              color: #725ce8;
             }
             .question {
+              background: #141414;
+              color: #fff;
+              border: none;
               .badge {
-                background: #e92C28;
+                background: #725ce8;
+                border: 1px solid #725ce8;
                 color: #fff;
               }
             }
@@ -214,9 +228,12 @@
               white-space: nowrap;
               align-items: center;
               flex-direction: row;
+              background: #141414;
+              color: #fff;
+
               .badge {
-                color: #EB6753;
-                border: 1px solid #EB6753;
+                color: red;
+                border: 1px solid red;
               }
             }
           }

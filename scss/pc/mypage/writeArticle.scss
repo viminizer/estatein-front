@@ -1,4 +1,5 @@
 #pc-wrap {
+
   #write-article-page {
     width: 100%;
     height: auto;
@@ -21,6 +22,7 @@
           letter-spacing: 0.6px;
           text-transform: capitalize;
         }
+
         .sub-title {
           color: #999999;
           font-family: $font;
@@ -35,6 +37,7 @@
     .right-wrap {
       width: 100%;
       height: auto;
+
       .cont_bd {
         padding: 30px 0px;
         .form_hd > div {

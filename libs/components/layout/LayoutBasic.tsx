@@ -47,7 +47,8 @@ const withLayoutBasic = (Component: any) => {
           break;
         case "/mypage":
           title = "my page";
-          desc = "Home / For Rent";
+          desc =
+            "View and manage your personal details in one place. Keep your information up to date with ease.";
           bgImage = "linear-gradient(to right, #262626, #141414 30%)";
           break;
         case "/community":
@@ -62,8 +63,9 @@ const withLayoutBasic = (Component: any) => {
           bgImage = "linear-gradient(to right, #262626, #141414 30%)";
           break;
         case "/cs":
-          title = "CS";
-          desc = "We are glad to see you again!";
+          title = "Customer Support";
+          desc =
+            "Find answers to common questions and stay updated with important announcements in our CS Center. Whether you need help or the latest updates, everything you need is right here.";
           bgImage = "linear-gradient(to right, #262626, #141414 30%)";
           break;
         case "/account/join":
