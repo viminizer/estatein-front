@@ -1,23 +1,34 @@
-import React, { useCallback, useState } from 'react';
-import { NextPage } from 'next';
-import useDeviceDetect from '../../libs/hooks/useDeviceDetect';
-import withLayoutBasic from '../../libs/components/layout/LayoutBasic';
-import { Box, Button, Checkbox, FormControlLabel, FormGroup, Stack } from '@mui/material';
-import { useRouter } from 'next/router';
-import { logIn, signUp } from '../../libs/auth';
-import { sweetMixinErrorAlert } from '../../libs/sweetAlert';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-
+import React, { useCallback, useState } from "react";
+import { NextPage } from "next";
+import useDeviceDetect from "../../libs/hooks/useDeviceDetect";
+import withLayoutBasic from "../../libs/components/layout/LayoutBasic";
+import {
+  Box,
+  Button,
+  Checkbox,
+  FormControlLabel,
+  FormGroup,
+  Stack,
+} from "@mui/material";
+import { useRouter } from "next/router";
+import { logIn, signUp } from "../../libs/auth";
+import { sweetMixinErrorAlert } from "../../libs/sweetAlert";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 export const getStaticProps = async ({ locale }: any) => ({
   props: {
-    ...(await serverSideTranslations(locale, ['common'])),
+    ...(await serverSideTranslations(locale, ["common"])),
   },
 });
 
 const Join: NextPage = () => {
   const router = useRouter();
   const device = useDeviceDetect();
-  const [input, setInput] = useState({ nick: '', password: '', phone: '', type: 'USER' });
+  const [input, setInput] = useState({
+    nick: "",
+    password: "",
+    phone: "",
+    type: "USER",
+  });
   const [loginView, setLoginView] = useState<boolean>(true);
 
   /** HANDLERS **/
@@ -29,9 +40,9 @@ const Join: NextPage = () => {
     const checked = e.target.checked;
     if (checked) {
       const value = e.target.name;
-      handleInput('type', value);
+      handleInput("type", value);
     } else {
-      handleInput('type', 'USER');
+      handleInput("type", "USER");
     }
   };
 
@@ -45,7 +56,7 @@ const Join: NextPage = () => {
     console.warn(input);
     try {
       await logIn(input.nick, input.password);
-      await router.push(`${router.query.referrer ?? '/'}`);
+      await router.push(`${router.query.referrer ?? "/"}`);
     } catch (err: any) {
       await sweetMixinErrorAlert(err.message);
     }
@@ -55,84 +66,97 @@ const Join: NextPage = () => {
     console.warn(input);
     try {
       await signUp(input.nick, input.password, input.phone, input.type);
-      await router.push(`${router.query.referrer ?? '/'}`);
+      await router.push(`${router.query.referrer ?? "/"}`);
     } catch (err: any) {
       await sweetMixinErrorAlert(err.message);
     }
   }, [input]);
 
-  if (device === 'mobile') {
+  if (device === "mobile") {
     return <div>LOGIN MOBILE</div>;
   } else {
     return (
-      <Stack className={'join-page'}>
-        <Stack className={'container'}>
-          <Stack className={'main'}>
-            <Stack className={'left'}>
+      <Stack className={"join-page"}>
+        <Stack className={"container"}>
+          <Stack className={"main"}>
+            <Stack className={"left"}>
               {/* @ts-ignore */}
-              <Box className={'logo'}>
-                <img src="/img/logo/logoText.svg" alt="" />
-                <span>Nestar</span>
+              <Box className={"logo"}>
+                <img src="/img/logo/favicon.svg" />
+                <span>Estatein</span>
               </Box>
-              <Box className={'info'}>
-                <span>{loginView ? 'login' : 'signup'}</span>
-                <p>{loginView ? 'Login' : 'Sign'} in with this account across the following sites.</p>
+              <Box className={"info"}>
+                <p>
+                  {loginView
+                    ? "Login into you Estatein Account"
+                    : "Create an Estatein Account"}{" "}
+                </p>
               </Box>
-              <Box className={'input-wrap'}>
-                <div className={'input-box'}>
+              <Box className={"input-wrap"}>
+                <div className={"input-box"}>
                   <span>Nickname</span>
                   <input
                     type="text"
-                    placeholder={'Enter Nickname'}
-                    onChange={(e) => handleInput('nick', e.target.value)}
+                    placeholder={"Enter Nickname"}
+                    onChange={(e) => handleInput("nick", e.target.value)}
                     required={true}
                     onKeyDown={(event) => {
-                      if (event.key == 'Enter' && loginView) doLogin();
-                      if (event.key == 'Enter' && !loginView) doSignUp();
+                      if (event.key == "Enter" && loginView) doLogin();
+                      if (event.key == "Enter" && !loginView) doSignUp();
                     }}
                   />
                 </div>
-                <div className={'input-box'}>
+                <div className={"input-box"}>
                   <span>Password</span>
                   <input
                     type="text"
-                    placeholder={'Enter Password'}
-                    onChange={(e) => handleInput('password', e.target.value)}
+                    placeholder={"Enter Password"}
+                    onChange={(e) => handleInput("password", e.target.value)}
                     required={true}
                     onKeyDown={(event) => {
-                      if (event.key == 'Enter' && loginView) doLogin();
-                      if (event.key == 'Enter' && !loginView) doSignUp();
+                      if (event.key == "Enter" && loginView) doLogin();
+                      if (event.key == "Enter" && !loginView) doSignUp();
                     }}
                   />
                 </div>
                 {!loginView && (
-                  <div className={'input-box'}>
+                  <div className={"input-box"}>
                     <span>Phone</span>
                     <input
                       type="text"
-                      placeholder={'Enter Phone'}
-                      onChange={(e) => handleInput('phone', e.target.value)}
+                      placeholder={"Enter Phone"}
+                      onChange={(e) => handleInput("phone", e.target.value)}
                       required={true}
                       onKeyDown={(event) => {
-                        if (event.key == 'Enter') doSignUp();
+                        if (event.key == "Enter") doSignUp();
                       }}
                     />
                   </div>
                 )}
               </Box>
-              <Box className={'register'}>
+              <Box className={"register"}>
                 {!loginView && (
-                  <div className={'type-option'}>
-                    <span className={'text'}>I want to be registered as:</span>
+                  <div className={"type-option"}>
+                    <span className={"text"}>I want to be registered as:</span>
                     <div>
                       <FormGroup>
                         <FormControlLabel
+                          sx={{ color: "white" }}
                           control={
                             <Checkbox
                               size="small"
-                              name={'USER'}
+                              name={"USER"}
                               onChange={checkUserTypeHandler}
-                              checked={input?.type == 'USER'}
+                              checked={input?.type == "USER"}
+                              sx={{
+                                color: "white", // Border color when unchecked
+                                "&.Mui-checked": {
+                                  color: "white", // Border color when checked
+                                },
+                                "& .MuiSvgIcon-root": {
+                                  borderRadius: "4px", // Optional: rounds edges slightly
+                                },
+                              }}
                             />
                           }
                           label="User"
@@ -140,12 +164,22 @@ const Join: NextPage = () => {
                       </FormGroup>
                       <FormGroup>
                         <FormControlLabel
+                          sx={{ color: "white" }}
                           control={
                             <Checkbox
                               size="small"
-                              name={'AGENT'}
+                              name={"AGENT"}
                               onChange={checkUserTypeHandler}
-                              checked={input?.type == 'AGENT'}
+                              checked={input?.type == "AGENT"}
+                              sx={{
+                                color: "white", // Border color when unchecked
+                                "&.Mui-checked": {
+                                  color: "white", // Border color when checked
+                                },
+                                "& .MuiSvgIcon-root": {
+                                  borderRadius: "4px", // Optional: rounds edges slightly
+                                },
+                              }}
                             />
                           }
                           label="Agent"
@@ -156,9 +190,27 @@ const Join: NextPage = () => {
                 )}
 
                 {loginView && (
-                  <div className={'remember-info'}>
+                  <div className={"remember-info"}>
                     <FormGroup>
-                      <FormControlLabel control={<Checkbox defaultChecked size="small" />} label="Remember me" />
+                      <FormControlLabel
+                        sx={{ color: "white" }}
+                        control={
+                          <Checkbox
+                            defaultChecked
+                            size="small"
+                            sx={{
+                              color: "white", // Border color when unchecked
+                              "&.Mui-checked": {
+                                color: "white", // Border color when checked
+                              },
+                              "& .MuiSvgIcon-root": {
+                                borderRadius: "4px", // Optional: rounds edges slightly
+                              },
+                            }}
+                          />
+                        }
+                        label="Remember me"
+                      />
                     </FormGroup>
                     <a>Lost your password?</a>
                   </div>
@@ -168,7 +220,7 @@ const Join: NextPage = () => {
                   <Button
                     variant="contained"
                     endIcon={<img src="/img/icons/rightup.svg" alt="" />}
-                    disabled={input.nick == '' || input.password == ''}
+                    disabled={input.nick == "" || input.password == ""}
                     onClick={doLogin}
                   >
                     LOGIN
@@ -176,7 +228,12 @@ const Join: NextPage = () => {
                 ) : (
                   <Button
                     variant="contained"
-                    disabled={input.nick == '' || input.password == '' || input.phone == '' || input.type == ''}
+                    disabled={
+                      input.nick == "" ||
+                      input.password == "" ||
+                      input.phone == "" ||
+                      input.type == ""
+                    }
                     onClick={doSignUp}
                     endIcon={<img src="/img/icons/rightup.svg" alt="" />}
                   >
@@ -184,7 +241,7 @@ const Join: NextPage = () => {
                   </Button>
                 )}
               </Box>
-              <Box className={'ask-info'}>
+              <Box className={"ask-info"}>
                 {loginView ? (
                   <p>
                     Not registered yet?
@@ -204,7 +261,6 @@ const Join: NextPage = () => {
                 )}
               </Box>
             </Stack>
-            <Stack className={'right'}></Stack>
           </Stack>
         </Stack>
       </Stack>

@@ -78,7 +78,7 @@ const withLayoutBasic = (Component: any) => {
         case "/member":
           title = "Member Page";
           desc = "Home / For Rent";
-          bgImage = "url(/img/banner/cubes.png)";
+          bgImage = "linear-gradient(to right, #262626, #141414 30%)";
           break;
         default:
           break;
@@ -132,7 +132,7 @@ const withLayoutBasic = (Component: any) => {
             <Stack
               className={`header-basic ${authHeader && "auth"}`}
               style={{
-                background: memoizedValues.bgImage,
+                background: memoizedValues?.bgImage,
               }}
             >
               <Stack className={"container"}>
