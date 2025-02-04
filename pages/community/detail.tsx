@@ -651,8 +651,7 @@ const CommunityDetail: NextPage = ({ initialInput, ...props }: T) => {
                       shape="circular"
                       color="primary"
                       onChange={paginationHandler}
-                      sx={{
-                        ".MuiPaginationItem-root": {
+                      sx={{ ".MuiPaginationItem-root": {
                           color: "red", // Change number color
                         },
                         ".Mui-selected": {

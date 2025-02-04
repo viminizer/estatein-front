@@ -1,24 +1,28 @@
-import React, { useEffect, useState } from 'react';
-import { NextPage } from 'next';
-import { Pagination, Stack, Typography } from '@mui/material';
-import useDeviceDetect from '../../hooks/useDeviceDetect';
-import { useRouter } from 'next/router';
-import CommunityCard from '../common/CommunityCard';
-import { T } from '../../types/common';
-import { BoardArticle } from '../../types/board-article/board-article';
-import { BoardArticlesInquiry } from '../../types/board-article/board-article.input';
-import { useMutation, useQuery } from '@apollo/client';
-import { LIKE_TARGET_BOARD_ARTICLE } from '../../../apollo/user/mutation';
-import { GET_BOARD_ARTICLES } from '../../../apollo/user/query';
-import { Messages } from '../../config';
-import { sweetTopSmallSuccessAlert, sweetMixinErrorAlert } from '../../sweetAlert';
+import React, { useEffect, useState } from "react";
+import { NextPage } from "next";
+import { Pagination, Stack, Typography } from "@mui/material";
+import useDeviceDetect from "../../hooks/useDeviceDetect";
+import { useRouter } from "next/router";
+import CommunityCard from "../common/CommunityCard";
+import { T } from "../../types/common";
+import { BoardArticle } from "../../types/board-article/board-article";
+import { BoardArticlesInquiry } from "../../types/board-article/board-article.input";
+import { useMutation, useQuery } from "@apollo/client";
+import { LIKE_TARGET_BOARD_ARTICLE } from "../../../apollo/user/mutation";
+import { GET_BOARD_ARTICLES } from "../../../apollo/user/query";
+import { Messages } from "../../config";
+import {
+  sweetTopSmallSuccessAlert,
+  sweetMixinErrorAlert,
+} from "../../sweetAlert";
 
 const MemberArticles: NextPage = ({ initialInput, ...props }: any) => {
   const device = useDeviceDetect();
   const router = useRouter();
   const [total, setTotal] = useState<number>(0);
   const { memberId } = router.query;
-  const [searchFilter, setSearchFilter] = useState<BoardArticlesInquiry>(initialInput);
+  const [searchFilter, setSearchFilter] =
+    useState<BoardArticlesInquiry>(initialInput);
   const [memberBoArticles, setMemberBoArticles] = useState<BoardArticle[]>([]);
 
   /** APOLLO REQUESTS **/
@@ -30,7 +34,7 @@ const MemberArticles: NextPage = ({ initialInput, ...props }: any) => {
     error: boardArticlesError,
     refetch: boardArticlesRefetch,
   } = useQuery(GET_BOARD_ARTICLES, {
-    fetchPolicy: 'network-only',
+    fetchPolicy: "network-only",
     variables: { input: searchFilter },
     notifyOnNetworkStatusChange: true,
     onCompleted: (data: T) => {
@@ -41,7 +45,8 @@ const MemberArticles: NextPage = ({ initialInput, ...props }: any) => {
 
   /** LIFECYCLES **/
   useEffect(() => {
-    if (memberId) setSearchFilter({ ...initialInput, search: { memberId: memberId } });
+    if (memberId)
+      setSearchFilter({ ...initialInput, search: { memberId: memberId } });
   }, [memberId]);
 
   /** HANDLERS **/
@@ -56,14 +61,14 @@ const MemberArticles: NextPage = ({ initialInput, ...props }: any) => {
       if (!user._id) throw new Error(Messages.error2);
       await likeTargetBoardArticle({ variables: { input: id } });
       await boardArticlesRefetch({ input: searchFilter });
-      await sweetTopSmallSuccessAlert('success', 800);
+      await sweetTopSmallSuccessAlert("success", 800);
     } catch (err: any) {
-      console.log('ERROR, likeArticleHandler', err);
+      console.log("ERROR, likeArticleHandler", err);
       sweetMixinErrorAlert(err.message).then();
     }
   };
 
-  if (device === 'mobile') {
+  if (device === "mobile") {
     return <div>MEMBER ARTICLES MOBILE</div>;
   } else {
     return (
@@ -75,7 +80,7 @@ const MemberArticles: NextPage = ({ initialInput, ...props }: any) => {
         </Stack>
         <Stack className="articles-list-box">
           {memberBoArticles?.length === 0 && (
-            <div className={'no-data'}>
+            <div className={"no-data"}>
               <img src="/img/icons/icoAlert.svg" alt="" />
               <p>No Articles found!</p>
             </div>
@@ -86,7 +91,7 @@ const MemberArticles: NextPage = ({ initialInput, ...props }: any) => {
                 likeArticleHandler={likeArticleHandler}
                 boardArticle={boardArticle}
                 key={boardArticle?._id}
-                size={'small'}
+                size={"small"}
               />
             );
           })}
@@ -100,10 +105,22 @@ const MemberArticles: NextPage = ({ initialInput, ...props }: any) => {
                 shape="circular"
                 color="primary"
                 onChange={paginationHandler}
+                sx={{
+                  ".MuiPaginationItem-root": {
+                    color: "red", // Change number color
+                  },
+                  ".Mui-selected": {
+                    color: "white", // Selected number color
+                    backgroundColor: "red", // Selected background color
+                  },
+                  ".MuiPaginationItem-icon": {
+                    color: "red",
+                  },
+                }}
               />
             </Stack>
             <Stack className="total-result">
-              <Typography>{total} property available</Typography>
+              <Typography>{total} articles available</Typography>
             </Stack>
           </Stack>
         )}
@@ -116,8 +133,8 @@ MemberArticles.defaultProps = {
   initialInput: {
     page: 1,
     limit: 6,
-    sort: 'createdAt',
-    direction: 'DESC',
+    sort: "createdAt",
+    direction: "DESC",
     search: {},
   },
 };

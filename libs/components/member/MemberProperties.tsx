@@ -1,20 +1,22 @@
-import React, { useEffect, useState } from 'react';
-import { NextPage } from 'next';
-import { Pagination, Stack, Typography } from '@mui/material';
-import useDeviceDetect from '../../hooks/useDeviceDetect';
-import { PropertyCard } from '../mypage/PropertyCard';
-import { Property } from '../../types/property/property';
-import { PropertiesInquiry } from '../../types/property/property.input';
-import { T } from '../../types/common';
-import { useRouter } from 'next/router';
-import { useQuery } from '@apollo/client';
-import { GET_PROPERTIES } from '../../../apollo/user/query';
+import React, { useEffect, useState } from "react";
+import { NextPage } from "next";
+import { Pagination, Stack, Typography } from "@mui/material";
+import useDeviceDetect from "../../hooks/useDeviceDetect";
+import { PropertyCard } from "../mypage/PropertyCard";
+import { Property } from "../../types/property/property";
+import { PropertiesInquiry } from "../../types/property/property.input";
+import { T } from "../../types/common";
+import { useRouter } from "next/router";
+import { useQuery } from "@apollo/client";
+import { GET_PROPERTIES } from "../../../apollo/user/query";
 
 const MyProperties: NextPage = ({ initialInput, ...props }: any) => {
   const device = useDeviceDetect();
   const router = useRouter();
   const { memberId } = router.query;
-  const [searchFilter, setSearchFilter] = useState<PropertiesInquiry>({ ...initialInput });
+  const [searchFilter, setSearchFilter] = useState<PropertiesInquiry>({
+    ...initialInput,
+  });
   const [agentProperties, setAgentProperties] = useState<Property[]>([]);
   const [total, setTotal] = useState<number>(0);
 
@@ -25,7 +27,7 @@ const MyProperties: NextPage = ({ initialInput, ...props }: any) => {
     error: getPropertiesError,
     refetch: getPropertiesRefetch,
   } = useQuery(GET_PROPERTIES, {
-    fetchPolicy: 'network-only',
+    fetchPolicy: "network-only",
     variables: { input: searchFilter },
     skip: !searchFilter?.search?.memberId,
     notifyOnNetworkStatusChange: true,
@@ -42,7 +44,10 @@ const MyProperties: NextPage = ({ initialInput, ...props }: any) => {
 
   useEffect(() => {
     if (memberId)
-      setSearchFilter({ ...initialInput, search: { ...initialInput.search, memberId: memberId as string } });
+      setSearchFilter({
+        ...initialInput,
+        search: { ...initialInput.search, memberId: memberId as string },
+      });
   }, [memberId]);
 
   /** HANDLERS **/
@@ -50,7 +55,7 @@ const MyProperties: NextPage = ({ initialInput, ...props }: any) => {
     setSearchFilter({ ...searchFilter, page: value });
   };
 
-  if (device === 'mobile') {
+  if (device === "mobile") {
     return <div>NESTAR PROPERTIES MOBILE</div>;
   } else {
     return (
@@ -71,13 +76,19 @@ const MyProperties: NextPage = ({ initialInput, ...props }: any) => {
               </Stack>
             )}
             {agentProperties?.length === 0 && (
-              <div className={'no-data'}>
+              <div className={"no-data"}>
                 <img src="/img/icons/icoAlert.svg" alt="" />
                 <p>No Property found!</p>
               </div>
             )}
             {agentProperties?.map((property: Property) => {
-              return <PropertyCard property={property} memberPage={true} key={property?._id} />;
+              return (
+                <PropertyCard
+                  property={property}
+                  memberPage={true}
+                  key={property?._id}
+                />
+              );
             })}
 
             {agentProperties.length !== 0 && (
@@ -89,10 +100,22 @@ const MyProperties: NextPage = ({ initialInput, ...props }: any) => {
                     shape="circular"
                     color="primary"
                     onChange={paginationHandler}
+                    sx={{
+                      ".MuiPaginationItem-root": {
+                        color: "red", // Change number color
+                      },
+                      ".Mui-selected": {
+                        color: "white", // Selected number color
+                        backgroundColor: "red", // Selected background color
+                      },
+                      ".MuiPaginationItem-icon": {
+                        color: "red",
+                      },
+                    }}
                   />
                 </Stack>
                 <Stack className="total-result">
-                  <Typography>{total} property available</Typography>
+                  <Typography>{total} properties available</Typography>
                 </Stack>
               </Stack>
             )}
@@ -107,9 +130,9 @@ MyProperties.defaultProps = {
   initialInput: {
     page: 1,
     limit: 5,
-    sort: 'createdAt',
+    sort: "createdAt",
     search: {
-      memberId: '',
+      memberId: "",
     },
   },
 };

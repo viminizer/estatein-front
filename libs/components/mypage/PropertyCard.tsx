@@ -85,10 +85,10 @@ export const PropertyCard = (props: PropertyCardProps) => {
         <Stack className="status-box">
           <Stack
             className="coloured-box"
-            sx={{ background: "#E5F0FD" }}
+            sx={{ background: "#1a1a1a", border: "1px solid #262626" }}
             onClick={handleClick}
           >
-            <Typography className="status" sx={{ color: "#3554d1" }}>
+            <Typography className="status" sx={{ color: "#703bf7" }}>
               {property.propertyStatus}
             </Typography>
           </Stack>
