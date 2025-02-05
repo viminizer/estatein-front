@@ -548,7 +548,7 @@ body::-webkit-scrollbar {
       display: flex;
       flex-direction: column;
       background: #292929;
-      border-radius: 15px;
+      border-radius: 6px;
       z-index: 100;
       bottom: 150px;
       transition: right 0.7s ease-in-out;
@@ -569,7 +569,7 @@ body::-webkit-scrollbar {
         font-family: $font;
         background: #212121;
         color: #fff;
-        border-radius: 15px 15px 0px 0px;
+        border-radius: 6px 6px 0px 0px;
       }
       .chat-content {
         position: relative;
