@@ -9,6 +9,7 @@ import HeaderFilter from "../homepage/HeaderFilter";
 import { userVar } from "../../../apollo/store";
 import { useReactiveVar } from "@apollo/client";
 import { getJwtToken, updateUserInfo } from "../../auth";
+import { useRouter } from "next/router";
 import Chat from "../Chat";
 import "swiper/css";
 import "swiper/css/pagination";
@@ -18,6 +19,7 @@ const withLayoutMain = (Component: any) => {
   return (props: any) => {
     const device = useDeviceDetect();
     const user = useReactiveVar(userVar);
+    const router = useRouter();
 
     /** LIFECYCLES **/
     useEffect(() => {
@@ -74,8 +76,18 @@ const withLayoutMain = (Component: any) => {
                     dreams.
                   </p>
                   <Stack className="buttons">
-                    <Button className="learn-more">Learn More</Button>
-                    <Button className="browse-hotels">Browse Properties</Button>
+                    <Button
+                      className="learn-more"
+                      onClick={() => router.push("/agent")}
+                    >
+                      Browse Agents
+                    </Button>
+                    <Button
+                      className="browse-hotels"
+                      onClick={() => router.push("/property")}
+                    >
+                      Browse Properties
+                    </Button>
                   </Stack>
                   <Stack className="cards">
                     <Stack className="card">
