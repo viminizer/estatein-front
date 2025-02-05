@@ -52,7 +52,7 @@ const AgentCard = (props: AgentCardProps) => {
             <Link
               href={{
                 pathname: "/agent/detail",
-                query: { agentId: "id" },
+                query: { agentId: agent?._id },
               }}
             >
               <strong>{agent?.memberNick}</strong>

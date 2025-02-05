@@ -13,12 +13,16 @@ import { CaretDown } from "phosphor-react";
 import useDeviceDetect from "../hooks/useDeviceDetect";
 import Link from "next/link";
 import NotificationsOutlinedIcon from "@mui/icons-material/NotificationsOutlined";
-import { useQuery, useReactiveVar } from "@apollo/client";
+import { useMutation, useQuery, useReactiveVar } from "@apollo/client";
 import { userVar } from "../../apollo/store";
 import { Logout } from "@mui/icons-material";
-import { REACT_APP_API_URL } from "../config";
+import { Messages, REACT_APP_API_URL } from "../config";
 import { RippleBadge } from "../../scss/MaterialTheme/styled";
-import { GET_NOTIFICATIONS } from "../../apollo/user/query";
+import {
+  GET_NOTIFICATIONS,
+  UPDATE_NOTIFICATION,
+} from "../../apollo/user/query";
+import { sweetMixinErrorAlert, sweetTopSmallSuccessAlert } from "../sweetAlert";
 
 const Top = () => {
   const device = useDeviceDetect();
@@ -44,6 +48,8 @@ const Top = () => {
   let openNotifications = Boolean(anchorEl3);
 
   // Apollo requests
+  const [updateNotification] = useMutation(UPDATE_NOTIFICATION);
+
   const {
     loading: getNotificationsLoading,
     data: getNotificationsData,
@@ -86,6 +92,22 @@ const Top = () => {
   }, []);
 
   /** HANDLERS **/
+
+  const updateNotificationHandler = async (user: any, notificationId: any) => {
+    try {
+      if (!notificationId) return;
+      if (!user._id) throw new Error(Messages.error2);
+      await updateNotification({
+        variables: { input: notificationId },
+      });
+      await getNotificationsRefetch({});
+      await sweetTopSmallSuccessAlert("success", 800);
+    } catch (err: any) {
+      console.log("ERROR, updateNotificationHandler", err);
+      sweetMixinErrorAlert(err.message).then();
+    }
+  };
+
   const langClick = (e: any) => {
     setAnchorEl2(e.currentTarget);
   };
@@ -96,7 +118,6 @@ const Top = () => {
   const notClose = () => {
     setAnchorEl3(null);
   };
-  const handleNotificationClick = () => { };
   const langClose = () => {
     setAnchorEl2(null);
   };
@@ -334,17 +355,25 @@ const Top = () => {
                   anchorEl={anchorEl3}
                   open={openNotifications}
                   onClose={notClose}
-                  sx={{ position: "absolute", left: 10, top: 0 }}
+                  sx={{
+                    position: "absolute",
+                    left: 10,
+                    top: 0,
+                    maxHeight: "400px",
+                    overflow: "hidden",
+                  }}
                 >
                   {notifications.length > 0 ? (
                     notifications.map((notification) => (
                       <MenuItem
                         disableRipple
-                        onClick={handleNotificationClick}
+                        onClick={() =>
+                          //@ts-ignore
+                          updateNotificationHandler(user, notification._id)
+                        }
                         id="en"
                         sx={{
                           width: "200px",
-                          maxHeight: "400px",
                           display: "flex",
                           flexDirection: "column",
                           alignItems: "flex-start",
@@ -387,17 +416,15 @@ const Top = () => {
                   ) : (
                     <MenuItem
                       disableRipple
-                      onClick={handleNotificationClick}
+                      onClick={notClose}
                       id="en"
                       sx={{
                         width: "200px",
-                        height: "500px",
                         display: "flex",
                         flexDirection: "column",
                         background: "#ececec",
                         borderRadius: "5px",
                         boxShadow: "0 4px 6px rgba(0, 0, 0, 0.3)",
-                        margin: "0px 10px 10px 10px",
                         overflow: "hidden",
                         "&:hover": { background: "#f2f2f2" },
                       }}
