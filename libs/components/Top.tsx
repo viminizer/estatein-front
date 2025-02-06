@@ -27,7 +27,6 @@ import { sweetMixinErrorAlert, sweetTopSmallSuccessAlert } from "../sweetAlert";
 const Top = () => {
   const device = useDeviceDetect();
   const user = useReactiveVar(userVar);
-  console.log("USER", user);
   const { t, i18n } = useTranslation("common");
   const router = useRouter();
   const [anchorEl2, setAnchorEl2] = useState<null | HTMLElement>(null);
@@ -60,7 +59,6 @@ const Top = () => {
     notifyOnNetworkStatusChange: true,
     skip: !user._id,
     onCompleted: (data) => {
-      console.log("DATA", data);
       setNotifications(data.getNotifications?.list);
       setNotificationCount(data.getNotifications?.metaCounter[0]?.total);
     },

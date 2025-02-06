@@ -8,6 +8,7 @@ import ThumbUpOffAltIcon from "@mui/icons-material/ThumbUpOffAlt";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import {
   Backdrop,
+  Box,
   Button,
   IconButton,
   Pagination,
@@ -88,6 +89,8 @@ const CommunityDetail: NextPage = ({ initialInput, ...props }: T) => {
   const [likeLoading, setLikeLoading] = useState<boolean>(false);
   const [boardArticle, setBoardArticle] = useState<BoardArticle>();
 
+  const unsafeHtml = { __html: boardArticle?.articleContent as string };
+
   /** APOLLO REQUESTS **/
   const [likeTargetBoardArticle] = useMutation(LIKE_TARGET_BOARD_ARTICLE);
   const [createComment] = useMutation(CREATE_COMMENT);
@@ -104,6 +107,7 @@ const CommunityDetail: NextPage = ({ initialInput, ...props }: T) => {
     notifyOnNetworkStatusChange: true,
     onCompleted: (data: T) => {
       setBoardArticle(data?.getBoardArticle);
+
       if (data?.getBoardArticle?.memberData?.memberImage) {
         setMemberImage(
           `${process.env.REACT_APP_API_URL}/${data?.getBoardArticle?.memberData?.memberImage}`
@@ -262,7 +266,6 @@ const CommunityDetail: NextPage = ({ initialInput, ...props }: T) => {
     setSearchFilter({ ...searchFilter, page: value });
   };
 
-  console.log("ME LIKED", boardArticle);
   if (device === "mobile") {
     return <div>COMMUNITY DETAIL PAGE MOBILE</div>;
   } else {
@@ -419,10 +422,13 @@ const CommunityDetail: NextPage = ({ initialInput, ...props }: T) => {
                     </Stack>
                   </Stack>
                   <Stack>
-                    <ToastViewerComponent
-                      markdown={boardArticle?.articleContent}
-                      className={"ytb-play"}
-                    />
+                    <Box
+                      component={"div"}
+                      sx={{ m: "40px", color: "white" }}
+                      className="dangerous-html"
+                    >
+                      <div dangerouslySetInnerHTML={unsafeHtml} />
+                    </Box>
                   </Stack>
                   <Stack className="like-and-dislike">
                     <Stack className="top">
