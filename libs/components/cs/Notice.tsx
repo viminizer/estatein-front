@@ -22,8 +22,8 @@ const data = [
 const Notice = () => {
   const device = useDeviceDetect();
   const [notices, setNotices] = useState<any>([]);
-  /** APOLLO REQUESTS **/
 
+  /** APOLLO REQUESTS **/
   const { } = useQuery(GET_NOTICES, {
     fetchPolicy: "cache-and-network",
     notifyOnNetworkStatusChange: true,

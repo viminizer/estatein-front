@@ -22,7 +22,7 @@ import "@toast-ui/editor/dist/toastui-editor.css";
 const NoticeEditor = () => {
   const editorRef = useRef<Editor>(null);
   const [noticeCategory, setNoticeCategory] = useState<NoticeCategory>(
-    NoticeCategory.FAQ
+    NoticeCategory.NOTICE
   );
   const router = useRouter();
 
@@ -116,12 +116,12 @@ const NoticeEditor = () => {
                 outline: "none",
               }}
             >
-              <MenuItem value={NoticeCategory.FAQ}>
-                <span>FAQ</span>
+              <MenuItem value={NoticeCategory.NOTICE}>
+                <span>NOTICE</span>
               </MenuItem>
               <MenuItem value={NoticeCategory.TERMS}>TERMS</MenuItem>
               <MenuItem value={NoticeCategory.INQUIRY}>INQUIRY</MenuItem>
-              <MenuItem value={NoticeCategory.NOTICE}>NOTICE</MenuItem>
+              <MenuItem value={NoticeCategory.FAQ}>FAQ</MenuItem>
             </Select>
           </FormControl>
         </Box>
