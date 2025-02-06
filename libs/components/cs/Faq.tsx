@@ -523,8 +523,7 @@ const Faq = () => {
             }}
           >
             Foy Buyers
-          </div>
-          <div
+          </div> <div
             className={category === "agents" ? "active" : ""}
             onClick={() => {
               changeCategoryHandler("agents");

@@ -1,80 +1,87 @@
 #write-notice-page {
   width: 100%;
   height: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
-  .main-title-box {
-    width: auto;
-    height: auto;
-    flex-direction: row;
-    justify-content: space-between;
+  .container {
+    width: 1290px;
+    .main-title-box {
+      width: auto;
+      height: auto;
+      flex-direction: row;
+      justify-content: space-between;
 
-    .right-box {
-      width: 315px;
+      .right-box {
+        width: 315px;
 
-      .main-title {
-        margin-top: 20px;
-        color: #000;
-        font-family: $font;
-        font-size: 20px;
-        font-style: normal;
-        font-weight: 600;
-        line-height: normal;
-        letter-spacing: 0.6px;
-        text-transform: capitalize;
+        .main-title {
+          margin-top: 20px;
+          margin-left: 50px;
+          color: #000;
+          font-family: $font;
+          font-size: 20px;
+          font-style: normal;
+          font-weight: 600;
+          line-height: normal;
+          letter-spacing: 0.6px;
+          text-transform: capitalize;
+        }
       }
     }
-  }
 
-  .right-wrap {
-    width: 100%;
-    height: auto;
+    .right-wrap {
+      width: 100%;
+      height: auto;
 
-    .cont_bd {
-      padding: 30px 0px;
-      .form_hd > div {
-        margin-bottom: 16px;
+      .cont_bd {
+        padding: 30px 0px;
+        .form_hd > div {
+          margin-bottom: 16px;
+        }
+      }
+      .flex-space {
+        .btn-next {
+          background: #703bf7;
+          color: #000000;
+        }
+      }
+      .select {
+        width: 214px;
+        height: 40px;
+        font-size: 14px;
+      }
+      .input-tit {
+        font-size: 14px;
+        padding: 0 16px;
+        margin-top: 16px;
+        border: 1px solid #eee;
+        border-radius: 4px;
+      }
+      .btn-flex {
+        margin-top: 40px;
       }
     }
-    .flex-space {
-      .btn-next {
-        background: #703bf7;
-        color: #000000;
+    .css-guvl2y-MuiButtonBase-root-MuiButton-root {
+      background: #87cdf9;
+      svg {
+        fill: #000000;
       }
     }
-    .select {
-      width: 214px;
-      height: 40px;
-      font-size: 14px;
+    .toastui-editor-popup-body {
+      padding: 20px;
     }
-    .input-tit {
-      font-size: 14px;
-      padding: 0 16px;
-      margin-top: 16px;
-      border: 1px solid #eee;
-      border-radius: 4px;
+    .youtube-input {
+      padding: 8px 16px;
+      border: 1px solid #ddd;
     }
-    .btn-flex {
-      margin-top: 40px;
+    .youtube-div {
+      display: flex;
+      flex-direction: column;
     }
-  }
-  .css-guvl2y-MuiButtonBase-root-MuiButton-root {
-    background: #87cdf9;
-    svg {
-      fill: #000000;
+    .toastui-editor-defaultUI button {
+      padding: 4px;
     }
-  }
-  .toastui-editor-popup-body {
-    padding: 20px;
-  }
-  .youtube-input {
-    padding: 8px 16px;
-    border: 1px solid #ddd;
-  }
-  .youtube-div {
-    display: flex;
-    flex-direction: column;
-  }
-  .toastui-editor-defaultUI button {
-    padding: 4px;
   }
 }

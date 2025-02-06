@@ -1,4 +1,4 @@
-import React, { useMemo, useRef, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import {
   Box,
   Button,
@@ -40,6 +40,8 @@ const TuiEditor = () => {
 
     return { articleTitle, articleContent, articleImage };
   }, []);
+
+  // LIFECYCLE
 
   /** HANDLERS **/
   const uploadImage = async (image: any) => {
