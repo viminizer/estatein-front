@@ -212,6 +212,7 @@ export const GET_NOTICES = gql`
         memberId
         createdAt
         updatedAt
+        event
       }
       metaCounter {
         total

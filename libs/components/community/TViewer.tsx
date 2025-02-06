@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "@toast-ui/editor/dist/toastui-editor.css";
 import { Viewer } from "@toast-ui/react-editor";
 import { Box, Stack, CircularProgress } from "@mui/material";
 
 const TViewer = (props: any) => {
   const [editorLoaded, setEditorLoaded] = useState(false);
+  const viewerRef = useRef<any>(null);
 
   /** LIFECYCLES **/
   useEffect(() => {
@@ -12,6 +13,10 @@ const TViewer = (props: any) => {
       setEditorLoaded(true);
     } else {
       setEditorLoaded(false);
+    }
+
+    if (viewerRef.current) {
+      viewerRef.current.style.color = "white";
     }
   }, [props.markdown]);
 
@@ -26,6 +31,7 @@ const TViewer = (props: any) => {
       <Box component={"div"} sx={{ m: "40px" }}>
         {editorLoaded ? (
           <Viewer
+            ref={viewerRef}
             initialValue={props.markdown}
             customHTMLRenderer={{
               htmlBlock: {

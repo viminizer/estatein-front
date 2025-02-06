@@ -421,7 +421,7 @@ const CommunityDetail: NextPage = ({ initialInput, ...props }: T) => {
                   <Stack>
                     <ToastViewerComponent
                       markdown={boardArticle?.articleContent}
-                      className={"ytb_play"}
+                      className={"ytb-play"}
                     />
                   </Stack>
                   <Stack className="like-and-dislike">
@@ -651,7 +651,8 @@ const CommunityDetail: NextPage = ({ initialInput, ...props }: T) => {
                       shape="circular"
                       color="primary"
                       onChange={paginationHandler}
-                      sx={{ ".MuiPaginationItem-root": {
+                      sx={{
+                        ".MuiPaginationItem-root": {
                           color: "red", // Change number color
                         },
                         ".Mui-selected": {
