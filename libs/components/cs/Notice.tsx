@@ -9,13 +9,13 @@ const data = [
   {
     no: 1,
     event: true,
-    title: "Register to use and get discounts",
-    date: "01.03.2024",
+    noticeTitle: "Register to use and get discounts",
+    createdAt: "01.03.2024",
   },
   {
     no: 2,
-    title: "It's absolutely free to upload and trade properties",
-    date: "31.03.2024",
+    noticeTitle: "It's absolutely free to upload and trade properties",
+    createdAt: "05.03.2024",
   },
 ];
 
@@ -49,7 +49,7 @@ const Notice = () => {
             <span>date</span>
           </Box>
           <Stack className={"bottom"}>
-            {notices.map((ele: any, index: number) => (
+            {[...notices, ...data].map((ele: any, index: number) => (
               <div
                 className={`notice-card ${ele?.event && "event"}`}
                 key={ele.noticeTitle}
