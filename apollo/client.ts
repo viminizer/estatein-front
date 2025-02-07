@@ -34,6 +34,9 @@ const tokenRefreshLink = new TokenRefreshLink({
     //TODO: execute refresh token
     return null;
   },
+  handleFetch: (token: string) => {
+    console.log(token);
+  },
 });
 
 //NOTE: Custom Websocke Client
