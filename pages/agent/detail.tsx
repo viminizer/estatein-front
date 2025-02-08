@@ -204,6 +204,8 @@ const AgentDetail: NextPage = ({
     setCommentInquiry({ ...commentInquiry });
   };
 
+
+
   if (device === "mobile") {
     return <div>AGENT DETAIL PAGE MOBILE</div>;
   } else {
