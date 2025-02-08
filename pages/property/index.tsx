@@ -3,7 +3,6 @@ import KeyboardArrowDownRoundedIcon from "@mui/icons-material/KeyboardArrowDownR
 import {
   Box,
   Button,
-  CircularProgress,
   Menu,
   MenuItem,
   Pagination,
@@ -282,19 +281,11 @@ const PropertyList: NextPage = ({ initialInput, ...props }: any) => {
             </Stack>
             <Stack className="main-config" mb={"76px"}>
               <Stack className={"list-config"}>
-                {getPropertiesLoading ? (
-                  <Stack
-                    sx={{
-                      display: "flex",
-                      justifyContent: "center",
-                      alignItems: "center",
-                      width: "100%",
-                      height: "1080px",
-                      background: "#141414",
-                    }}
-                  >
-                    <CircularProgress size={"4rem"} />
-                  </Stack>
+                {properties?.length === 0 ? (
+                  <div className={"no-data"}>
+                    <img src="/img/icons/icoAlert.svg" alt="" />
+                    <p>No Properties found!</p>
+                  </div>
                 ) : (
                   properties.map((property: Property) => {
                     return (
