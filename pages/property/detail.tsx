@@ -239,6 +239,7 @@ const PropertyDetail: NextPage = ({ initialComment, ...props }: any) => {
           alignItems: "center",
           width: "100%",
           height: "1080px",
+          background: "#141414",
         }}
       >
         <CircularProgress size={"4rem"} />
