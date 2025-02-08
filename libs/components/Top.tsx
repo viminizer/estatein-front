@@ -55,7 +55,7 @@ const Top = () => {
     error: getNotificationsError,
     refetch: getNotificationsRefetch,
   } = useQuery(GET_NOTIFICATIONS, {
-    fetchPolicy: "network-only",
+    fetchPolicy: "cache-and-network",
     notifyOnNetworkStatusChange: true,
     skip: !user._id,
     onCompleted: (data) => {
@@ -369,7 +369,6 @@ const Top = () => {
                           //@ts-ignore
                           updateNotificationHandler(user, notification._id)
                         }
-                        id="en"
                         sx={{
                           width: "200px",
                           display: "flex",
