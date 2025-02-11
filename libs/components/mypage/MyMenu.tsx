@@ -266,7 +266,7 @@ const MyMenu = () => {
                   scroll={false}
                 >
                   <div className={"flex-box"}>
-                    {category === "followers" ? (
+                    {category === "followings" ? (
                       <img
                         className={"com-icon"}
                         src={"/img/icons/users-filled.svg"}
