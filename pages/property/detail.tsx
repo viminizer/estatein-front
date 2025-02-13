@@ -35,7 +35,7 @@ import {
 import PropertyBigCard from "../../libs/components/common/PropertyBigCard";
 import withLayoutFull from "../../libs/components/layout/LayoutFull";
 import Review from "../../libs/components/property/Review";
-import { Messages, REACT_APP_API_URL } from "../../libs/config";
+import { REACT_APP_API_URL } from "../../libs/config";
 import { CommentGroup } from "../../libs/enums/comment.enum";
 import { Direction, Message } from "../../libs/enums/common.enum";
 import useDeviceDetect from "../../libs/hooks/useDeviceDetect";

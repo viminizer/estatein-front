@@ -24,7 +24,6 @@ import MemberFollowings from "../../libs/components/member/MemberFollowings";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import {
   LIKE_TARGET_MEMBER,
-  LIKE_TARGET_PROPERTY,
   SUBSCRIBE,
   UNSUBSCRIBE,
 } from "../../apollo/user/mutation";
