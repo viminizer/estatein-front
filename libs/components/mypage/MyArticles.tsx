@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useState } from "react";
 import { NextPage } from "next";
 import useDeviceDetect from "../../hooks/useDeviceDetect";
 import { Pagination, Stack, Typography } from "@mui/material";
