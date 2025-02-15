@@ -823,7 +823,7 @@ const Filter = (props: FilterType) => {
               sx={{
                 borderRadius: 0,
                 border: searchFilter?.search?.bedsList?.includes(1)
-                  ? "2px solid #181A20"
+                  ? "2px solid #ffffff"
                   : "1px solid #b9b9b9",
                 borderLeft: searchFilter?.search?.bedsList?.includes(1)
                   ? undefined
@@ -837,7 +837,7 @@ const Filter = (props: FilterType) => {
               sx={{
                 borderRadius: 0,
                 border: searchFilter?.search?.bedsList?.includes(2)
-                  ? "2px solid #181A20"
+                  ? "2px solid #ffffff"
                   : "1px solid #b9b9b9",
                 borderLeft: searchFilter?.search?.bedsList?.includes(2)
                   ? undefined
@@ -851,7 +851,7 @@ const Filter = (props: FilterType) => {
               sx={{
                 borderRadius: 0,
                 border: searchFilter?.search?.bedsList?.includes(3)
-                  ? "2px solid #181A20"
+                  ? "2px solid #ffffff"
                   : "1px solid #b9b9b9",
                 borderLeft: searchFilter?.search?.bedsList?.includes(3)
                   ? undefined
@@ -865,7 +865,7 @@ const Filter = (props: FilterType) => {
               sx={{
                 borderRadius: 0,
                 border: searchFilter?.search?.bedsList?.includes(4)
-                  ? "2px solid #181A20"
+                  ? "2px solid #ffffff"
                   : "1px solid #b9b9b9",
                 borderLeft: searchFilter?.search?.bedsList?.includes(4)
                   ? undefined
@@ -880,7 +880,7 @@ const Filter = (props: FilterType) => {
               sx={{
                 borderRadius: "0 12px 12px 0",
                 border: searchFilter?.search?.bedsList?.includes(5)
-                  ? "2px solid #181A20"
+                  ? "2px solid #ffffff"
                   : "1px solid #b9b9b9",
                 borderLeft: searchFilter?.search?.bedsList?.includes(5)
                   ? undefined
