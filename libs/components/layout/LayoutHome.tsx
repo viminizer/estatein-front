@@ -68,7 +68,7 @@ const withLayoutMain = (Component: any) => {
               <Stack className="container">
                 <Stack className="left">
                   <Typography className="heading">
-                    Explore Your Dream Property With Estatein
+                    Discover Your Dream Property With Estatein
                   </Typography>
                   <p className="desc">
                     Your journey to finding the perfect property begins here.
