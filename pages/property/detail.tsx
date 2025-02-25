@@ -139,7 +139,7 @@ const PropertyDetail: NextPage = ({ initialComment, ...props }: any) => {
   } = useQuery(GET_COMMENTS, {
     fetchPolicy: "cache-and-network",
     variables: {
-      input: { initialComment },
+      input: commentInquiry,
     },
     skip: !commentInquiry.search.commentRefId,
     notifyOnNetworkStatusChange: true,

@@ -23,6 +23,7 @@ import {
   UPDATE_NOTIFICATION,
 } from "../../apollo/user/query";
 import { sweetMixinErrorAlert, sweetTopSmallSuccessAlert } from "../sweetAlert";
+import { notificationsVar } from "../../apollo/store";
 
 const Top = () => {
   const device = useDeviceDetect();
@@ -42,13 +43,14 @@ const Top = () => {
   const logoutOpen = Boolean(logoutAnchor);
 
   const [anchorEl3, setAnchorEl3] = React.useState<any | HTMLElement>(null);
+
   const [notifications, setNotifications] = React.useState<Notification[]>([]);
   const [notificationCount, setNotificationCount] = React.useState<number>(0);
   let openNotifications = Boolean(anchorEl3);
 
   // Apollo requests
   const [updateNotification] = useMutation(UPDATE_NOTIFICATION);
-
+  /*
   const {
     loading: getNotificationsLoading,
     data: getNotificationsData,
@@ -63,16 +65,22 @@ const Top = () => {
       setNotificationCount(data.getNotifications?.metaCounter[0]?.total);
     },
   });
+*/
+  const notificationsList = useReactiveVar(notificationsVar);
+  console.log("GET_NOTIFICATIONS", notificationsList);
 
   /** LIFECYCLES **/
   useEffect(() => {
+    // @ts-ignore
+    setNotifications(notificationsList?.list ?? []);
+    setNotificationCount(notificationsList?.metaCounter[0]?.total ?? 0);
     if (localStorage.getItem("locale") === null) {
       localStorage.setItem("locale", "en");
       setLang("en");
     } else {
       setLang(localStorage.getItem("locale"));
     }
-  }, [router]);
+  }, [router, notificationsList]);
 
   useEffect(() => {
     switch (router.pathname) {
@@ -98,7 +106,7 @@ const Top = () => {
       await updateNotification({
         variables: { input: notificationId },
       });
-      await getNotificationsRefetch({});
+      // await getNotificationsRefetch({});
       await sweetTopSmallSuccessAlert("success", 800);
     } catch (err: any) {
       console.log("ERROR, updateNotificationHandler", err);
@@ -361,7 +369,7 @@ const Top = () => {
                     overflow: "hidden",
                   }}
                 >
-                  {notifications.length > 0 ? (
+                  {notifications?.length > 0 ? (
                     notifications.map((notification) => (
                       <MenuItem
                         disableRipple

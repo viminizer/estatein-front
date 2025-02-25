@@ -8,10 +8,11 @@ import { useRouter } from "next/router";
 import ScrollableFeed from "react-scrollable-feed";
 import { RippleBadge } from "../../scss/MaterialTheme/styled";
 import { useReactiveVar } from "@apollo/client";
-import { socketVar, userVar } from "../../apollo/store";
+import { notificationsVar, socketVar, userVar } from "../../apollo/store";
 import { Member } from "../types/member/member";
 import { Messages, REACT_APP_API_URL } from "../config";
 import { sweetErrorAlert } from "../sweetAlert";
+import { Notifications } from "../types/notification/notification";
 
 const NewMessage = (type: any) => {
   if (type === "right") {
@@ -86,6 +87,11 @@ const Chat = () => {
           const newMessage: MessagePayload = data;
           messagesList.push(newMessage);
           setMessagesList([...messagesList]);
+          break;
+        case "notifications":
+          notificationsVar(data.notifications);
+          break;
+        default:
           break;
       }
     };
