@@ -50,24 +50,7 @@ const Top = () => {
 
   // Apollo requests
   const [updateNotification] = useMutation(UPDATE_NOTIFICATION);
-  /*
-  const {
-    loading: getNotificationsLoading,
-    data: getNotificationsData,
-    error: getNotificationsError,
-    refetch: getNotificationsRefetch,
-  } = useQuery(GET_NOTIFICATIONS, {
-    fetchPolicy: "cache-and-network",
-    notifyOnNetworkStatusChange: true,
-    skip: !user._id,
-    onCompleted: (data) => {
-      setNotifications(data.getNotifications?.list);
-      setNotificationCount(data.getNotifications?.metaCounter[0]?.total);
-    },
-  });
-*/
   const notificationsList = useReactiveVar(notificationsVar);
-  console.log("GET_NOTIFICATIONS", notificationsList);
 
   /** LIFECYCLES **/
   useEffect(() => {
