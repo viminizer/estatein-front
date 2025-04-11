@@ -35,7 +35,6 @@ const Top = () => {
   const drop = Boolean(anchorEl2);
   const [colorChange, setColorChange] = useState(false);
   const [anchorEl, setAnchorEl] = React.useState<any | HTMLElement>(null);
-  let open = Boolean(anchorEl);
   const [bgColor, setBgColor] = useState<boolean>(false);
   const [logoutAnchor, setLogoutAnchor] = React.useState<null | HTMLElement>(
     null
@@ -63,7 +62,7 @@ const Top = () => {
     } else {
       setLang(localStorage.getItem("locale"));
     }
-  }, [router, notificationsList]);
+  }, [router, notificationsList, user]);
 
   useEffect(() => {
     switch (router.pathname) {
@@ -89,7 +88,6 @@ const Top = () => {
       await updateNotification({
         variables: { input: notificationId },
       });
-      // await getNotificationsRefetch({});
       await sweetTopSmallSuccessAlert("success", 800);
     } catch (err: any) {
       console.log("ERROR, updateNotificationHandler", err);

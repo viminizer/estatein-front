@@ -39,7 +39,7 @@ const tokenRefreshLink = new TokenRefreshLink({
   },
 });
 
-//NOTE: Custom Websocke Client
+//NOTE: Custom Websocket Client
 class LoggingWebSocket {
   private socket: WebSocket;
 
@@ -93,7 +93,7 @@ function createIsomorphicLink() {
     const wsLink = new WebSocketLink({
       uri: process.env.REACT_APP_API_WS ?? "ws://localhost:3004",
       options: {
-        reconnect: false,
+        reconnect: true,
         timeout: 30000,
         connectionParams: () => {
           return { headers: getHeaders() };

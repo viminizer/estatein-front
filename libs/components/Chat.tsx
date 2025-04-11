@@ -67,13 +67,14 @@ const Chat = () => {
   const router = useRouter();
   const user = useReactiveVar(userVar);
   const socket = useReactiveVar(socketVar);
+  const notifications = useReactiveVar(notificationsVar);
 
   /** LIFECYCLES **/
 
   useEffect(() => {
     socket.onmessage = (msg) => {
       const data = JSON.parse(msg.data);
-      console.log("websocket message", data);
+      console.log("websocket message:", data);
       switch (data.event) {
         case "info":
           const newInfo: InfoPayload = data;
@@ -82,6 +83,7 @@ const Chat = () => {
         case "getMessages":
           const list: MessagePayload[] = data.list;
           setMessagesList(list);
+          console.log("getMessages event");
           break;
         case "message":
           const newMessage: MessagePayload = data;
@@ -95,6 +97,7 @@ const Chat = () => {
           break;
       }
     };
+    console.log("Chat is rendered!");
   }, [socket, messagesList, onlineUsers]);
 
   useEffect(() => {
