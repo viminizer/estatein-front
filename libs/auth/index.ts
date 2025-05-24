@@ -85,10 +85,6 @@ export const signUp = async (
     if (jwtToken) {
       updateStorage({ jwtToken });
       updateUserInfo(jwtToken);
-      const socket = new WebSocket(
-        `${process.env.REACT_APP_API_WS}?token=${jwtToken}`
-      );
-      socketVar(socket);
     }
   } catch (err) {
     console.warn("login err", err);

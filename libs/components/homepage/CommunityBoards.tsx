@@ -11,7 +11,7 @@ import { BoardArticleCategory } from '../../enums/board-article.enum';
 
 const CommunityBoards = () => {
   const device = useDeviceDetect();
-  const [searchCommunity, setSearchCommunity] = useState({
+  const [searchCommunity, _setSearchCommunity] = useState({
     page: 1,
     sort: 'articleViews',
     direction: 'DESC',
